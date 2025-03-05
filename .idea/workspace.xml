@@ -36,9 +36,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "TecBlack5338"
+  }
+}]]></component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="fe8e094c-1f41-4b9e-90de-810498acf9c6" />
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/sadghsbaj/Zwischenpruefung.git",
+    "accountId": "fe8e094c-1f41-4b9e-90de-810498acf9c6"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -85,7 +97,7 @@
     "Python.test.executor": "Run",
     "Python.users.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "<unknown>",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/Hansd/Desktop/AppOnline",
     "list.type.of.created.stylesheet": "CSS",
@@ -293,7 +305,7 @@
       <workItem from="1741124293316" duration="13339000" />
       <workItem from="1741139672160" duration="571000" />
       <workItem from="1741173076627" duration="24249000" />
-      <workItem from="1741210420283" duration="740000" />
+      <workItem from="1741210420283" duration="4009000" />
     </task>
     <servers />
   </component>
