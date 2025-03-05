@@ -1,0 +1,366 @@
+:root {
+  /* Standardwerte (Dark Theme – werden via JS überschrieben, außer für white und coruscant) */
+  --bg-body: #f5f5f5;
+  --bg-calculator: #1e1e1e;
+  --bg-display: #292929;
+  --bg-key: #333333;
+  --bg-key-hover: #444444;
+  --bg-key-special: #5a5a5a;
+  --bg-key-special-hover: #6e6e6e;
+  --bg-key-equals: #c0392b;
+  --bg-key-equals-hover: #e74c3c;
+  --color-text: #ffffff;
+  --color-operator: #c0392b;
+  --color-placeholder: #b0b0b0;
+  --border-radius: 8px;
+  --transition-speed: 0.2s;
+  --separator-color: #444444;
+  --border-color: #222222;
+  /* Auswahlfarbe im Display */
+  --selection-bg: #c0392b;
+  --selection-color: #ffffff;
+}
+
+/* Buttons sollen nicht markierbar sein */
+.keys button {
+  user-select: none;
+}
+
+/* Im Display darf Text ausgewählt werden – mit themenabhängigen Farben */
+.display {
+  user-select: text;
+}
+.display ::selection {
+  background: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes cosmicAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes mustafaBubbling {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 10% 10%; }
+  50% { background-position: 0% 0%; }
+  75% { background-position: -10% -10%; }
+  100% { background-position: 0% 0%; }
+}
+@keyframes dagobahAnimation {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 0%; }
+}
+
+.display-cosmic {
+  animation: cosmicAnimation 3s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+.display-mustafa {
+  animation: mustafaBubbling 3s ease-in-out infinite;
+  background-size: 300% 300%;
+}
+.display-dagobah {
+  animation: dagobahAnimation 8s linear infinite;
+  background-size: 150% 150%;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: var(--bg-body);
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.calculator {
+  width: 350px;
+  background: var(--bg-calculator);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: background 0.5s;
+  border: 4px solid var(--border-color);
+}
+.calculator.animated {
+  background-size: 400% 400%;
+  animation: gradientAnimation 5s ease infinite;
+}
+
+.display {
+  background: var(--bg-display);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+  transition: background 0.5s;
+}
+.display-line {
+  text-align: right;
+}
+.display-line.placeholder {
+  font-size: 1.2em;
+  color: var(--color-placeholder);
+}
+.display-line.input {
+  font-size: 2em;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+/* Icons – nun klickbar und unten links im Display */
+.theme-icon {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+  pointer-events: auto;
+  display: none;
+  cursor: pointer;
+}
+.theme-icon svg {
+  width: 100%;
+  height: 100%;
+}
+#yodaIcon,
+#coruscantIcon {
+  color: #ffffff !important;
+}
+#lightsaberIcon {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 5px #00aaff);
+}
+
+.theme-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10;
+  color: var(--color-text);
+}
+.theme-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-dropdown {
+  position: absolute;
+  top: 35px;
+  left: 5px;
+  background: var(--bg-key);
+  border: 1px solid var(--bg-key-special);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 20;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.theme-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.theme-dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background var(--transition-speed);
+  color: var(--color-text);
+}
+.theme-dropdown li:hover {
+  background: var(--bg-key-hover);
+}
+.theme-heading {
+  padding: 8px 12px;
+  font-weight: bold;
+  cursor: default;
+  background: var(--bg-key-special);
+}
+
+.separator {
+  height: 2px;
+  background: var(--separator-color);
+  margin: 0;
+  padding: 0;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--bg-calculator);
+}
+.keys button {
+  background: var(--bg-key);
+  border: none;
+  color: var(--color-text);
+  padding: 15px;
+  font-size: 1.4em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+.keys button:hover {
+  background: var(--bg-key-hover);
+  transform: scale(1.03);
+}
+.keys button:active {
+  transform: scale(0.97);
+}
+.keys button:focus {
+  outline: none;
+}
+.key-clear,
+.key-back,
+.key-copy {
+  background: var(--bg-key-special);
+}
+.key-clear:hover,
+.key-back:hover,
+.key-copy:hover {
+  background: var(--bg-key-special-hover);
+}
+.key-equals {
+  background: var(--bg-key-equals) !important;
+}
+.key-equals:hover {
+  background: var(--bg-key-equals-hover);
+  box-shadow: 0 0 8px rgba(192,57,43,0.8);
+}
+.keys button.key-plus,
+.keys button.key-minus,
+.keys button.key-multiply,
+.keys button.key-divide {
+  color: var(--color-operator);
+}
+
+.key-frac .icon svg {
+  width: 36px;
+  height: 36px;
+}
+.key-frac .icon svg text {
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+}
+.key .icon {
+  display: inline-block;
+  line-height: 1;
+  font-size: 1.4em;
+}
+.key .label {
+  display: none;
+}
+
+/* ---------- Fraction Popup Styles ---------- */
+/* Default (Dark) – gilt für dark, Dagobah, Mustafa, High etc. */
+.fraction-popup {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.fraction-container {
+  background: var(--bg-calculator);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  min-width: 200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fraction-popup .fraction-container {
+  pointer-events: auto;
+  /* Restliche Styles bleiben gleich */
+}
+
+.fraction-container input {
+  background: var(--bg-display);
+  color: var(--color-text);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  width: calc(100% - 1rem);
+  text-align: center;
+}
+
+.fraction-line {
+  width: 100%;
+  border-bottom: 2px solid var(--separator-color);
+  margin: 0.5rem 0;
+}
+
+.fraction-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.fraction-buttons button {
+  background: var(--bg-key);
+  color: var(--color-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background var(--transition-speed);
+}
+
+.fraction-buttons button:hover {
+  background: var(--bg-key-hover);
+}
+
+/* White Popup Styles – gelten für die Themes white & coruscant */
+.calculator.white .fraction-container,
+.calculator.coruscant .fraction-container {
+  background: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #cccccc;
+}
+
+.calculator.white .fraction-container input,
+.calculator.coruscant .fraction-container input {
+  background: #f0f0f0;
+  color: #000000;
+  border: 1px solid #cccccc;
+}
+
+.calculator.white .fraction-buttons button,
+.calculator.coruscant .fraction-buttons button {
+  background: #e0e0e0;
+  color: #000000;
+}
+
+.calculator.white .fraction-buttons button:hover,
+.calculator.coruscant .fraction-buttons button:hover {
+  background: #d0d0d0;
+}

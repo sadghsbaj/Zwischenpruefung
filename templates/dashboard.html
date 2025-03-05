@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Frühzeitiges Setzen des Dark-Mode, um FOUC zu vermeiden -->
+  <script>
+    (function() {
+      var mode_value = "{{ session['mode'] }}";
+      if (mode_value === "Dunkel") {
+        document.documentElement.classList.add('dark-mode');
+      }
+    })();
+  </script>
+
+  <title>Dashboard</title>
+
+  <!-- Google Fonts (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Material Icons (optional) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  <!-- Externe CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <h1>Übersicht</h1>
+      <div class="right-actions">
+        <!-- SETTINGS-BUTTON: Standard im Hell-Modus gear.png -->
+        <button class="settings-btn" id="settingsBtn">
+          <img src="static/images/dashboard/gear.png" alt="Einstellungen" class="gear-icon"/>
+        </button>
+      </div>
+
+      <!-- DROPDOWN -->
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown-item">
+          <div class="left-section">
+            <div class="mode-icon-container">
+              <span id="modeIcon" class="mode-icon sun">&#9728;</span>
+            </div>
+            <div class="text-block">
+              <div class="dropdown-header">Design</div>
+              <div class="mode-label"><span id="modeText">Hell</span></div>
+            </div>
+          </div>
+          <div class="toggle-switch">
+            <label class="switch">
+              <input type="checkbox" id="modeToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <!-- Neuer Container für den "neuladen"-Button (zunächst versteckt) -->
+        <div id="reloadContainer">
+          <button id="reloadButton">
+            <span class="material-symbols-outlined spinner-icon">autorenew</span>neuladen
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="welcome-section">
+        <p>Willkommen {{ username }}, schön, dass du hier bist!</p>
+      </div>
+      <!-- BUTTONS im 2x2-Raster -->
+      <div class="button-grid">
+        <a href="/learning-mode" class="button-card button1">
+          <div class="icon">
+            <span class="material-symbols-outlined">school</span>
+          </div>
+          <span>Lernen</span>
+        </a>
+        <a href="/stats" class="button-card button2">
+          <div class="icon">
+            <span class="material-symbols-outlined">bar_chart</span>
+          </div>
+          <span>Statistiken</span>
+        </a>
+        <a href="#" class="button-card button3 coming-soon">
+          <div class="icon">
+            <span class="material-symbols-outlined">settings</span>
+          </div>
+          <span>Coming Soon</span>
+        </a>
+        <a href="#" class="button-card button3 coming-soon">
+          <div class="icon">
+            <span class="material-symbols-outlined">settings</span>
+          </div>
+          <span>Coming Soon</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <a href="{{ url_for('login.logout') }}" class="logout">Logout</a>
+    </footer>
+  </div>
+
+  <!-- JavaScript für den Dark Mode Button -->
+  <script>
+    // Elemente holen
+    const settingsBtn = document.getElementById('settingsBtn');
+    const dropdown = document.getElementById('dropdown');
+    const modeToggle = document.getElementById('modeToggle');
+    const modeText = document.getElementById('modeText');
+    const modeIcon = document.getElementById('modeIcon');
+    const gearIcon = document.querySelector('.gear-icon');
+    const reloadContainer = document.getElementById('reloadContainer');
+    const reloadButton = document.getElementById('reloadButton');
+
+    // Dropdown beim Klick auf den Einstellungsbutton ein-/ausblenden
+    settingsBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      dropdown.classList.toggle('show');
+    });
+    // Schließt das Dropdown, wenn außerhalb geklickt wird
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.navbar') && !event.target.closest('.dropdown')) {
+        dropdown.classList.remove('show');
+      }
+    });
+
+    // Funktion zum Senden des Modus an den Flask-Server (Beispiel-Endpoint)
+    function sendModeToFlask(mode) {
+      fetch('/update_mode', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode: mode })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Flask response:', data))
+      .catch(error => console.error('Error sending mode:', error));
+    }
+
+    // Anpassung der Seite anhand des Session-Werts beim Laden
+    document.addEventListener('DOMContentLoaded', () => {
+      var mode_value = "{{ session['mode'] }}";
+      if (mode_value === "Dunkel") {
+        modeText.textContent = 'Dunkel';
+        modeIcon.innerHTML = '&#x263D;'; // Mond-Symbol
+        modeIcon.classList.remove('sun');
+        modeIcon.classList.add('moon');
+        document.body.classList.add('dark-mode');
+        gearIcon.src = "static/images/dashboard/white_gear.png";
+        modeToggle.checked = true;
+      } else if (mode_value === "Hell") {
+        modeText.textContent = 'Hell';
+        modeIcon.innerHTML = '&#9728;'; // Sonnen-Symbol
+        modeIcon.classList.remove('moon');
+        modeIcon.classList.add('sun');
+        document.body.classList.remove('dark-mode');
+        gearIcon.src = "static/images/dashboard/gear.png";
+        modeToggle.checked = false;
+      }
+    });
+
+    // Dark Mode Umschaltung
+    modeToggle.addEventListener('change', () => {
+      if (modeToggle.checked) { // Dark Mode
+        modeText.textContent = 'Dunkel';
+        modeIcon.innerHTML = '&#x263D;'; // Mond-Symbol
+        modeIcon.classList.remove('sun');
+        modeIcon.classList.add('moon');
+        document.body.classList.add('dark-mode');
+        gearIcon.src = "static/images/dashboard/white_gear.png";
+        sendModeToFlask('Dunkel');
+      } else { // Hell Mode
+        modeText.textContent = 'Hell';
+        modeIcon.innerHTML = '&#9728;'; // Sonnen-Symbol
+        modeIcon.classList.remove('moon');
+        modeIcon.classList.add('sun');
+        document.body.classList.remove('dark-mode');
+        gearIcon.src = "static/images/dashboard/gear.png";
+        sendModeToFlask('Hell');
+      }
+      // Verzögerte Anzeige des Reload-Buttons (500ms)
+      setTimeout(() => {
+        reloadContainer.style.display = "block";
+      }, 500);
+    });
+
+    // Beim Klick auf den Button zur Route /logout weiterleiten
+    reloadButton.addEventListener('click', () => {
+      window.location.href = '/logout';
+    });
+  </script>
+</body>
+</html>

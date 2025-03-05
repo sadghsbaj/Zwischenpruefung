@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question</title>
+    <script>
+  (function() {
+    var mode_value = "{{ session['mode'] }}";
+    console.log("mode_value:", mode_value); // Debug-Ausgabe in der Konsole
+    if (mode_value === "Dunkel") {
+      document.body.classList.add('dark-mode');
+    }
+  })();
+</script>
+  <!-- Google Fonts: Open Sans -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/rechnen.css') }}">
+</head>
+<body class="{% if session.get('mode') == 'Dunkel' %}dark-mode{% endif %}">
+  <!-- Info-Icon oben links -->
+  <div class="info-icon">i</div>
+  <!-- Versteckte Checkbox für den Toggle des Menüs -->
+  <input type="checkbox" id="toggle-menu">
+  <!-- Toggle-Icon (Hamburger) oben rechts -->
+  <label for="toggle-menu" class="toggle-icon">&#9776;</label>
+
+  <!-- Header -->
+  <header>
+    <h1>Berechnen</h1>
+  </header>
+
+  <!-- Wrapper für Hauptinhalt und Seitenmenü -->
+  <div class="content-wrapper">
+    <!-- Hauptinhalt -->
+    <main class="container">
+      <!-- Focus Toggle Button -->
+      <button class="focus-toggle">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </button>
+      <!-- Prüfungsbereich -->
+<div class="question-container">
+  <form method="POST" action="/submit_solution">
+    {% for row in data %}
+      <p class="question-text"><strong>{{ row['fragegekuerzt'] }}</strong></p>
+    {% endfor %}
+
+    <!-- Neuer Nebenrechnungsbereich -->
+<div class="calc-wrapper">
+    <!-- Notizfeld -->
+    <textarea class="side-note" placeholder="Hier kannst du Notizen oder Nebenrechnungen eintragen..."></textarea>
+
+    <!-- Taschenrechner -->
+    <div class="calculator">
+      <!-- Display (editierbar) -->
+      <div class="calc-display" contenteditable="true"></div>
+      <!-- Tastenbereich -->
+      <div class="calc-buttons">
+       <!-- Zeile 1: Bruch, √, ( , ) -->
+        <div class="calc-row row1">
+          <button type="button" class="calc-btn btn-function" data-value="fraction">
+            <span class="button-fraction">
+              <span class="num">x</span>
+              <span class="den">y</span>
+            </span>
+          </button>
+          <button type="button" class="calc-btn btn-function" data-value="sqrt">√</button>
+          <button type="button" class="calc-btn btn-function" data-value="(">(</button>
+          <button type="button" class="calc-btn btn-function" data-value=")">)</button>
+        </div>
+        <!-- Zeile 2: C, Rücktaste, %, ÷ -->
+        <div class="calc-row row2">
+          <button type="button" class="calc-btn btn-operator" data-value="C">C</button>
+          <button type="button" class="calc-btn btn-operator" data-value="back">⌫</button>
+          <button type="button" class="calc-btn btn-operator" data-value="%">%</button>
+          <button type="button" class="calc-btn btn-operator" data-value="÷">÷</button>
+        </div>
+        <!-- Zeile 3: 7, 8, 9, × -->
+        <div class="calc-row row3">
+          <button type="button" class="calc-btn btn-digit" data-value="7">7</button>
+          <button type="button" class="calc-btn btn-digit" data-value="8">8</button>
+          <button type="button" class="calc-btn btn-digit" data-value="9">9</button>
+          <button type="button" class="calc-btn btn-operator" data-value="*">×</button>
+        </div>
+        <!-- Zeile 4: 4, 5, 6, – -->
+        <div class="calc-row row4">
+          <button type="button" class="calc-btn btn-digit" data-value="4">4</button>
+          <button type="button" class="calc-btn btn-digit" data-value="5">5</button>
+          <button type="button" class="calc-btn btn-digit" data-value="6">6</button>
+          <button type="button" class="calc-btn btn-operator" data-value="-">–</button>
+        </div>
+        <!-- Zeile 5: 1, 2, 3, + -->
+        <div class="calc-row row5">
+          <button type="button" class="calc-btn btn-digit" data-value="1">1</button>
+          <button type="button" class="calc-btn btn-digit" data-value="2">2</button>
+          <button type="button" class="calc-btn btn-digit" data-value="3">3</button>
+          <button type="button" class="calc-btn btn-operator" data-value="+">+</button>
+        </div>
+        <!-- Zeile 6: copy, 0, , , = -->
+        <div class="calc-row row6">
+          <button type="button" class="calc-btn btn-copy" data-value="copy">copy</button>
+          <button type="button" class="calc-btn btn-digit" data-value="0">0</button>
+          <button type="button" class="calc-btn btn-digit" data-value=",">,</button>
+          <button type="button" class="calc-btn btn-operator" data-value="=">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- Ende Nebenrechnungsbereich -->
+
+    <!-- Antwortfeld (bleibt wie gehabt, z. B. absolut unten im Container) -->
+    <div class="loesung">
+      <input type="number" step="0.01" id="loesung" name="loesung" placeholder="Antwort" aria-label="Lösung" required
+             class="{% if checked %}{{ 'correct-answer' if correct else 'incorrect-answer' }}{% else %}initial-answer{% endif %}"
+             value="{% if checked %}{{ result if correct else correct_answer }}{% endif %}">
+    </div>
+
+    <!-- Überprüfen-/Weiter-Button -->
+    <button class="check-button">
+      <span class="check-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </span>
+      <span class="check-text">{% if checked %}Weiter{% else %}Überprüfen{% endif %}</span>
+    </button>
+  </form>
+</div>
+
+
+      <!-- Ende Prüfungsbereich -->
+    </main>
+
+    <!-- Seitenmenü -->
+    <aside class="side-menu">
+      <div class="menu-header">Optionen</div>
+      <!-- Anlage Button -->
+      <button class="btn-anlage">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.44 11.05l-8.49 8.49a5.5 5.5 0 0 1-7.78-7.78l8.49-8.49a3.5 3.5 0 0 1 4.95 4.95l-8.49 8.49"></path>
+          </svg>
+        </span>
+        <span class="btn-text">Anlage</span>
+      </button>
+      <!-- Melden Button -->
+      <button class="btn-melden">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12" y2="16"></line>
+          </svg>
+        </span>
+        <span class="btn-text">Melden</span>
+      </button>
+      <!-- Merken Button -->
+      <input type="checkbox" id="toggle-merken" hidden>
+      <label for="toggle-merken" class="btn-merken">
+        <span class="icon">
+          <svg class="star-svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.7 5.8 21 7 14 2 9.3 9 8.5 12 2"></polygon>
+          </svg>
+        </span>
+        <span class="btn-text default">Merken</span>
+        <span class="btn-text active">Gemerkt</span>
+      </label>
+      <!-- Beenden Button -->
+      <form action="submit_back" method="POST">
+        <button type="submit" class="btn-beenden">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21V3h18v18"></path>
+              <path d="M10 9h4"></path>
+            </svg>
+          </span>
+          <span class="btn-text">Beenden</span>
+        </button>
+      </form>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-info">
+      Richtig: {{ session['correct_count'] if session.get('correct_count') else 0 }} |
+      Falsch: {{ session['incorrect_count'] if session.get('incorrect_count') else 0 }} |
+      Offen: <span id="open-tasks"></span>
+    </p>
+  </footer>
+
+  <!-- Popup Overlay Info -->
+  <div class="popup-overlay">
+    <div class="popup-content">
+      <p id="hint-text"></p>
+      <button class="popup-ok">Ok</button>
+    </div>
+  </div>
+
+  <!-- Popup Overlay Melden -->
+  <div class="popup-melden" id="Meldung-container">
+    <div class="popup-melden-content">
+      <p>Problem melden:</p>
+      <input type="text" id="Meldung-input" placeholder="Bitte beschreibe das Problem kurz">
+      <div class="popup-melden-buttons">
+        <button class="popup-submit">Absenden</button>
+        <button class="popup-cancel">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Overlay für Anlage (PNG-Datei) -->
+  <div id="popup-anlage">
+    <div class="popup-content">
+      <img id="popup-img" src="" alt="Anlage">
+      <button class="close-btn" onclick="closeAnlage()">Schließen</button>
+    </div>
+  </div>
+
+  <!-- Focus Mode Overlay -->
+  <div class="focus-overlay"></div>
+
+  <!-- Skripte -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkButton = document.querySelector('.check-button');
+      const checkTextSpan = checkButton.querySelector('.check-text');
+
+      function updateButtonStyle() {
+        if (checkTextSpan.textContent.trim() === 'Weiter') {
+          checkButton.classList.add('active');
+        } else {
+          checkButton.classList.remove('active');
+        }
+      }
+      updateButtonStyle();
+      const observer = new MutationObserver(updateButtonStyle);
+      observer.observe(checkTextSpan, { characterData: true, childList: true, subtree: true });
+      checkButton.addEventListener('click', function() {
+        setTimeout(updateButtonStyle, 10);
+      });
+
+      // Anlage-Button: Popup öffnen
+      document.querySelector('.btn-anlage').addEventListener('click', openAnlage);
+
+      // Melden-Button
+      document.querySelector('.btn-melden').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById("Meldung-container").style.display = "flex";
+      });
+      document.querySelector('.popup-submit').addEventListener('click', function(e) {
+        e.preventDefault();
+        submitText();
+      });
+      document.querySelector('.popup-cancel').addEventListener('click', function() {
+        document.getElementById("Meldung-input").value = "";
+        document.getElementById("Meldung-container").style.display = "none";
+      });
+      document.getElementById("Meldung-container").addEventListener('click', function(e) {
+        if (e.target === this) {
+          document.getElementById("Meldung-input").value = "";
+          this.style.display = "none";
+        }
+      });
+      document.querySelector('.focus-toggle').addEventListener('click', function() {
+        var focusOverlay = document.querySelector('.focus-overlay');
+        var container = document.querySelector('.container');
+        if (container.classList.contains('focus-active')) {
+          container.classList.remove('focus-active');
+          focusOverlay.style.display = 'none';
+        } else {
+          container.classList.add('focus-active');
+          focusOverlay.style.display = 'block';
+        }
+      });
+      document.querySelector('.info-icon').addEventListener('click', function(e) {
+        e.preventDefault();
+        openhinweis();
+      });
+      window.onload = updateOpenTasks;
+    });
+
+    function openhinweis() {
+      fetch('/show_hint')
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          const hintText = document.getElementById('hint-text');
+          const infoPopup = document.querySelector('.popup-overlay');
+          hintText.textContent = data.hinweis;
+          infoPopup.style.display = 'flex';
+        })
+        .catch(error => {
+          console.error('Fehler:', error);
+          alert('Hinweis konnte nicht geladen werden');
+        });
+       // Schließen des Info-Popups, wenn "Ok" gedrückt wird
+        document.querySelector('.popup-ok').addEventListener('click', function() {
+          document.querySelector('.popup-overlay').style.display = 'none';
+        });
+
+        // Schließen des Info-Popups, wenn außerhalb des Inhalts geklickt wird
+        document.querySelector('.popup-overlay').addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.style.display = 'none';
+  }
+});
+    }
+
+    function submitText() {
+      let inputText = document.getElementById("Meldung-input").value;
+      fetch("/save_text", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: inputText })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("Meldung-input").value = "";
+        document.getElementById("Meldung-container").style.display = "none";
+      })
+      .catch(error => console.error("Fehler:", error));
+    }
+
+    function updateOpenTasks() {
+      fetch('/open_tasks')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('open-tasks').textContent = data.open_tasks;
+        })
+        .catch(error => console.error('Fehler beim Abrufen der offenen Aufgaben:', error));
+    }
+
+    function updateTime() {
+      const currentDate = new Date();
+      const hours = String(currentDate.getHours()).padStart(2, '0');
+      const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+      const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('time').textContent = timeString;
+      fetch('/update_time', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ live_time: timeString })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Antwort von Flask:', data))
+      .catch(error => console.error('Fehler:', error));
+    }
+    updateTime();
+    setInterval(updateTime, 10000);
+
+    (function () {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        const confirmLeave = confirm("Du kannst nicht zur vorherigen Frage zurückkehren! Möchtest du das lernen beenden?");
+        if (confirmLeave) {
+          window.location.href = '/ergebnis';
+        } else {
+          history.pushState(null, null, location.href);
+        }
+      };
+    })();
+
+    // Funktion zum Öffnen des Anlage-Popups
+    function openAnlage() {
+  fetch('/show_anlage')
+    .then(response => response.json())
+    .then(data => {
+      const anlageDateiname = data.anlagebezeichnung;
+      const popupImg = document.getElementById('popup-img');
+      popupImg.src = "{{ url_for('static', filename='images/anlagen/') }}" + anlageDateiname;
+
+      // Sobald das Bild geladen ist, Dimensionen anpassen
+      popupImg.onload = function() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const targetWidth = vw * 0.7;   // 70% der Fensterbreite
+        const targetHeight = vh * 0.7;  // 70% der Fensterhöhe
+
+        const naturalWidth = popupImg.naturalWidth;
+        const naturalHeight = popupImg.naturalHeight;
+        const imageRatio = naturalWidth / naturalHeight;
+        const targetRatio = targetWidth / targetHeight;
+
+        // So skalieren, dass das Bild 70% abdeckt und das Seitenverhältnis beibehalten wird
+        if (targetRatio > imageRatio) {
+          // Bild wird nach der Höhe skaliert
+          popupImg.style.height = targetHeight + "px";
+          popupImg.style.width = (targetHeight * imageRatio) + "px";
+        } else {
+          // Bild wird nach der Breite skaliert
+          popupImg.style.width = targetWidth + "px";
+          popupImg.style.height = (targetWidth / imageRatio) + "px";
+        }
+      };
+
+      document.getElementById('popup-anlage').style.display = 'flex';
+    })
+    .catch(error => console.error('Fehler beim Abrufen der Anlage:', error));
+}
+
+
+    // Funktion zum Schließen des Anlage-Popups
+    function closeAnlage() {
+      document.getElementById('popup-anlage').style.display = 'none';
+    }
+
+  </script>
+
+  <div id="time" style="display:none;"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const calcDisplay = document.querySelector('.calc-display');
+  const calcButtons = document.querySelectorAll('.calc-btn');
+
+  // Variable für das aktuell aktive Feld in einem Bruch oder √‑Eingabebereich
+  let activeEditingField = null;
+
+  // Setze den Fokus initial auf das Display
+  calcDisplay.focus();
+
+  calcButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (activeEditingField) {
+        activeEditingField.focus();
+      } else {
+        calcDisplay.focus();
+      }
+      const value = this.getAttribute('data-value');
+
+      if (value === 'C') {
+        calcDisplay.innerHTML = '';
+        activeEditingField = null;
+      } else if (value === 'back') {
+        removeLastChar();
+      } else if (value === '=') {
+        let expr = getExpressionFromDisplay();
+        // Debug-Ausgabe: So kannst du den finalen Ausdruck sehen
+        console.log("Ausdruck:", expr);
+        try {
+          let result = eval(expr);
+          calcDisplay.innerHTML = '=' + result;
+          activeEditingField = null;
+        } catch (e) {
+          calcDisplay.innerHTML = 'Error';
+          activeEditingField = null;
+        }
+      } else if (value === 'copy') {
+        let text = calcDisplay.innerText;
+        if(text.startsWith('=')) {
+          text = text.substring(1);
+        }
+        copyToClipboard(text);
+      } else if (value === 'fraction') {
+        insertFraction();
+      } else if (value === 'sqrt') {
+        insertSqrt();
+      } else {
+        // Für alle anderen Tasten (Ziffern, Operatoren)
+        if (activeEditingField) {
+          insertTextToActiveField(value);
+        } else {
+          document.execCommand('insertText', false, value);
+        }
+      }
+    });
+  });
+
+  function removeLastChar() {
+    let sel = window.getSelection();
+    if (sel.rangeCount > 0) {
+      let range = sel.getRangeAt(0);
+      if (range.startContainer.nodeType === 3) {
+        range.startContainer.textContent = range.startContainer.textContent.slice(0, -1);
+      } else {
+        calcDisplay.innerText = calcDisplay.innerText.slice(0, -1);
+      }
+    }
+  }
+
+  // Rekursive Funktion, um den gesamten Inhalt als auswertbaren Ausdruck zusammenzuführen.
+  function parseNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return node.textContent;
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      if (node.classList.contains('fraction')) {
+        let numeratorElem = node.querySelector('.numerator');
+        let denominatorElem = node.querySelector('.denominator');
+        let numerator = numeratorElem ? numeratorElem.textContent.replace(/\u200B/g, '').trim() : "";
+        let denominator = denominatorElem ? denominatorElem.textContent.replace(/\u200B/g, '').trim() : "";
+        if(numerator === "") numerator = "0";
+        if(denominator === "") denominator = "1";
+        return "(" + numerator + ")/(" + denominator + ")";
+      } else if (node.classList.contains('sqrt-container')) {
+        let sqrtContentElem = node.querySelector('.sqrt-content');
+        // Verarbeite den Inhalt der Quadratwurzel
+        let sqrtContent = sqrtContentElem ? parseNode(sqrtContentElem) : "";
+        if(sqrtContent === "") sqrtContent = "0";
+        return "Math.sqrt(" + sqrtContent + ")";
+      } else {
+        let result = "";
+        node.childNodes.forEach(child => {
+          result += parseNode(child);
+        });
+        return result;
+      }
+    }
+    return "";
+  }
+
+  // Liest den Inhalt des Displays aus und entfernt unsichtbare Platzhalter,
+  // sodass der Ausdruck (z.B. "Math.sqrt(16)+2") vollständig und korrekt zusammengefügt wird.
+  function getExpressionFromDisplay() {
+    let container = document.createElement('div');
+    container.innerHTML = calcDisplay.innerHTML;
+
+    // Zuerst alle fraction- und sqrt-container ersetzen
+    container.querySelectorAll('.fraction').forEach(frac => {
+      let numeratorElem = frac.querySelector('.numerator');
+      let denominatorElem = frac.querySelector('.denominator');
+      let numerator = numeratorElem ? numeratorElem.innerText.replace(/\u200B/g, '').trim() : "";
+      let denominator = denominatorElem ? denominatorElem.innerText.replace(/\u200B/g, '').trim() : "";
+      if(numerator === "") numerator = "0";
+      if(denominator === "") denominator = "1";
+      frac.outerHTML = "(" + numerator + ")/(" + denominator + ")";
+    });
+    container.querySelectorAll('.sqrt-container').forEach(sqrtEl => {
+      let sqrtContentElem = sqrtEl.querySelector('.sqrt-content');
+      let sqrtContent = sqrtContentElem ? sqrtContentElem.innerText.replace(/\u200B/g, '').trim() : "";
+      if(sqrtContent === "") sqrtContent = "0";
+      sqrtEl.outerHTML = "Math.sqrt(" + sqrtContent + ")";
+    });
+
+    // Jetzt den kompletten Text extrahieren und unnötige Steuerzeichen entfernen
+    let text = container.innerText;
+    text = text.replace(/\u200B/g, '');
+    if(text.startsWith('=')) {
+      text = text.substring(1);
+    }
+    text = text.replace(/,/g, '.');
+    text = text.replace(/÷/g, '/');
+    return text;
+  }
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      // Erfolg (optional)
+    }, function(err) {
+      console.error('Copy failed: ', err);
+    });
+  }
+
+  // Bruch einfügen (unverändert)
+  function insertFraction() {
+    const fraction = document.createElement('span');
+    fraction.className = 'fraction';
+    fraction.contentEditable = "false";
+
+    const numerator = document.createElement('span');
+    numerator.className = 'numerator';
+    numerator.contentEditable = "true";
+    numerator.innerHTML = '\u200B'; // Platzhalter
+
+    const denominator = document.createElement('span');
+    denominator.className = 'denominator';
+    denominator.contentEditable = "true";
+    denominator.innerHTML = '\u200B'; // Platzhalter
+
+    fraction.appendChild(numerator);
+    fraction.appendChild(denominator);
+
+    insertNodeAtCaret(fraction, true, numerator);
+    activeEditingField = numerator;
+  }
+
+  // Quadratwurzel einfügen: Es wird "√()" eingefügt und der Cursor zwischen den Klammern positioniert.
+  function insertSqrt() {
+    // Erzeuge das Symbol √ (nicht editierbar)
+    const sqrtSymbol = document.createElement('span');
+    sqrtSymbol.className = 'sqrt-symbol';
+    sqrtSymbol.contentEditable = "false";
+    sqrtSymbol.textContent = '√';
+
+    // Erzeuge die öffnende Klammer als Text
+    const openParen = document.createTextNode('(');
+
+    // Erzeuge den editierbaren Bereich zwischen den Klammern
+    const sqrtContent = document.createElement('span');
+    sqrtContent.className = 'sqrt-content';
+    sqrtContent.contentEditable = "true";
+    sqrtContent.innerHTML = '\u200B'; // Platzhalter
+
+    // Erzeuge die schließende Klammer als Text
+    const closeParen = document.createTextNode(')');
+
+    // Gruppiere alles in einem Container
+    const sqrtContainer = document.createElement('span');
+    sqrtContainer.className = 'sqrt-container';
+    sqrtContainer.appendChild(sqrtSymbol);
+    sqrtContainer.appendChild(openParen);
+    sqrtContainer.appendChild(sqrtContent);
+    sqrtContainer.appendChild(closeParen);
+
+    // Füge den Container an der aktuellen Cursorposition ein und setze den Cursor in den editierbaren Bereich
+    insertNodeAtCaret(sqrtContainer, true, sqrtContent);
+  }
+
+  // Fügt einen Node an der aktuellen Cursorposition ein und setzt den Cursor ggf. in ein angegebenes Kindfeld
+  function insertNodeAtCaret(node, placeCaretInside = false, caretTarget = null) {
+    calcDisplay.focus();
+    let sel = window.getSelection();
+    if (sel.rangeCount) {
+      let range = sel.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(node);
+      if (placeCaretInside) {
+        let newRange = document.createRange();
+        if (caretTarget) {
+          newRange.selectNodeContents(caretTarget);
+          newRange.collapse(false);
+        } else {
+          newRange.selectNodeContents(node);
+          newRange.collapse(false);
+        }
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+      } else {
+        range.setStartAfter(node);
+        range.setEndAfter(node);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    }
+  }
+
+  function insertTextToActiveField(text) {
+    if (activeEditingField) {
+      activeEditingField.focus();
+      document.execCommand('insertText', false, text);
+    }
+  }
+
+  // Klicks im Display: Bei Klick in einem numerator-, denominator- oder sqrt-content-Feld wird dieses als aktives Bearbeitungsfeld gesetzt.
+  calcDisplay.addEventListener('click', function(e) {
+    if (
+      e.target.classList.contains('numerator') ||
+      e.target.classList.contains('denominator') ||
+      e.target.classList.contains('sqrt-content')
+    ) {
+      activeEditingField = e.target;
+    } else {
+      activeEditingField = null;
+    }
+  });
+
+  // Beim Drücken der Leertaste wird ggf. der Fraction-Modus verlassen.
+  calcDisplay.addEventListener('keydown', function(e) {
+    if(e.key === ' ') {
+      let sel = window.getSelection();
+      if(sel.rangeCount) {
+        let node = sel.focusNode;
+        while(node && node !== calcDisplay) {
+          if(node.classList && node.classList.contains('fraction')) {
+            node.contentEditable = "false";
+            activeEditingField = null;
+            let range = document.createRange();
+            range.setStartAfter(node);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            e.preventDefault();
+            document.execCommand('insertText', false, ' ');
+            break;
+          }
+          node = node.parentNode;
+        }
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<footer>
+  <div class="footer-info">
+    <span class="footer-item correct">
+      <i class="fas fa-check"></i> Richtig: {{ session['correct_count'] if session.get('correct_count') else 0 }}
+    </span>
+    <span class="separator">|</span>
+    <span class="footer-item incorrect">
+      <i class="fas fa-times"></i> Falsch: {{ session['incorrect_count'] if session.get('incorrect_count') else 0 }}
+    </span>
+    <span class="separator">|</span>
+    <span class="footer-item open">
+      <i class="fas fa-tasks"></i> Offen: <span id="open-tasks"></span>
+    </span>
+  </div>
+</footer>

@@ -1,0 +1,398 @@
+/* ---------- Original CSS ---------- */
+
+/* Verhindert das Markieren von Überschrift und Buttons */
+.menu-heading,
+.menu-button {
+  user-select: none;
+}
+
+/* Überschrift des Menüs */
+.menu-heading {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #404040;
+  margin: 0 0 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+/* Container für die Buttons mit Abstand zur Überschrift */
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Basisstil der Buttons */
+.menu-button {
+  display: flex;
+  width: 100%;
+  min-width: 250px;
+  border: none;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover-Effekt für den Button */
+.menu-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Farben für die Buttons */
+.menu-button:nth-child(1) .btn-text { background-color: #e0f0ff; } /* Blau */
+.menu-button:nth-child(1) .btn-icon { background-color: #4a90e2; }
+
+.menu-button:nth-child(2) .btn-text { background-color: #d2ffcc; } /* Grün */
+.menu-button:nth-child(2) .btn-icon { background-color: #4caf50; }
+
+/* Standardgrauer Button für 'Merken' */
+.bookmark-btn .btn-text { background-color: #f0f0f0; } /* Grau */
+.bookmark-btn .btn-icon { background-color: #808080; }
+
+/* Gelber Zustand für 'Gemerkt' */
+.bookmark-btn.active .btn-text { background-color: #fff7d1; } /* Gelb */
+.bookmark-btn.active .btn-icon { background-color: #ffcc00; }
+
+/* Icon-Stilwechsel für 'Gemerkt' */
+.bookmark-btn.active .btn-icon i {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Standard-Farbe */
+.menu-button:nth-child(4) .btn-text { background-color: #ffe0e0; } /* Rot */
+.menu-button:nth-child(4) .btn-icon { background-color: #e74c3c; }
+
+/* Linker Teil: Text */
+.btn-text {
+  flex: 1;
+  padding: 15px 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Rechter Teil: Icon mit fester Breite */
+.btn-icon {
+  width: 60px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon-Styling */
+.btn-icon i {
+  color: #fff;
+  font-size: 18px;
+}
+
+/* Hover-Effekte für die einzelnen Buttons */
+.menu-button:nth-child(1):hover .btn-text { background-color: #d0e8ff; }
+.menu-button:nth-child(1):hover .btn-icon { background-color: #3a7fd5; }
+
+.menu-button:nth-child(2):hover .btn-text { background-color: #d0ffd0; }
+.menu-button:nth-child(2):hover .btn-icon { background-color: #3b9e40; }
+
+.bookmark-btn:hover .btn-text { background-color: #e0e0e0; }
+.bookmark-btn:hover .btn-icon { background-color: #707070; }
+
+.bookmark-btn.active:hover .btn-text { background-color: #ffe999; }
+.bookmark-btn.active:hover .btn-icon { background-color: #e6b800; }
+
+.menu-button:nth-child(4):hover .btn-text { background-color: #ffd0d0; }
+.menu-button:nth-child(4):hover .btn-icon { background-color: #d43c2c; }
+
+/* Overlay für Pop-ups: Hintergrund verdunkeln und bluren */
+.overlay {
+  display: none; /* Standardmäßig ausgeblendet */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+  backdrop-filter: blur(5px); /* Unschärfe des Hintergrunds */
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Über allen anderen Elementen */
+}
+
+/* Nur der Hintergrund (nicht das Pop-up) wird verschwommen */
+body.popup-active .content-wrapper {
+  filter: blur(4px);
+}
+
+/* Menü bleibt unverändert mit weißem Hintergrund */
+body.popup-active .side-menu {
+  background: white;
+  transition: background 0.3s ease;
+}
+
+/* Das Pop-up bleibt oben ohne Unschärfe */
+body.popup-active .popup {
+  z-index: 1000;
+  filter: none;
+}
+
+/* Das eigentliche Pop-up – identisch für beide Fälle */
+.popup {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  font-family: 'Open Sans', sans-serif;
+  z-index: 1000;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Die Buttons im Pop-up */
+.popup-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Ja- und Nein-Button-Styling (Exit-Popup) */
+.popup-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Ja-Button (Bestätigen) */
+#confirm-yes {
+  background-color: #e74c3c;
+  color: white;
+}
+#confirm-yes:hover {
+  background-color: #c0392b;
+}
+
+/* Nein-Button (Abbrechen) */
+#confirm-no {
+  background-color: #bdc3c7;
+  color: black;
+}
+#confirm-no:hover {
+  background-color: #95a5a6;
+}
+
+/* Gesamtes Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding-top: 5vh;
+  z-index: 1000;
+}
+
+/* Container für das Bild, transparent und 70% der Viewport-Breite */
+.modal-content {
+  position: relative;
+  display: inline-block;
+  width: 70vw;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* Bild füllt den Container */
+.modal-content img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Schließ-Button, über dem Bild platziert */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  font-size: 24px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1010;
+}
+
+/* --- Meldung Popup Specific Styles --- */
+.popup.meldung-popup input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #81c784;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.popup.meldung-popup .popup-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Meldung-Button: nutzt exakt dieselbe Positionierung wie der Exit-Popup-Button */
+.popup.meldung-popup .popup-submit {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #81c784;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+.popup.meldung-popup .popup-submit:hover {
+  background-color: #66bb6a;
+}
+
+/* Sicherstellen, dass das Meldung-Popup beim Laden der Seite nicht sichtbar ist */
+#Meldung-container {
+  display: none;
+}
+
+/* Container als Positionsbezug */
+.container {
+  position: relative;
+}
+
+/* Modernes Styling für das Lösungsinput */
+/* Input-Feld wird links unten positioniert */
+.question-container form .loesung input {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px 15px;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Entfernt die Pfeile (Spinner) in nummerischen Eingabefeldern */
+.question-container form .loesung input::-webkit-outer-spin-button,
+.question-container form .loesung input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.question-container form .loesung input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Standardzustand: Grüner Button */
+/* Button wird rechts unten positioniert */
+.question-container form .check-button {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #4CAF50;  /* Haupt-Grünton */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover-Effekt für den Button im Standardzustand */
+.question-container form .check-button:hover {
+  background-color: #43A047;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Styling für das Icon im Standardzustand */
+.question-container form .check-icon {
+  background-color: #66BB6A;  /* Sekundärer Grünton */
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+/* Hover-Effekt für das Icon im Standardzustand */
+.question-container form .check-button:hover .check-icon {
+  background-color: #57A05C;
+}
+
+/* Styling für den Button-Text */
+.question-container form .check-text {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* Neuer Zustand: Wenn der Button "Weiter" anzeigt (Klasse .next) */
+.question-container form .check-button.next {
+  background-color: #607D8B;  /* Modernes blau-grau */
+}
+
+.question-container form .check-button.next:hover {
+  background-color: #546E7A;  /* Leicht dunkler beim Hover */
+}
+
+.question-container form .check-button.next .check-icon {
+  background-color: #78909C;  /* Hellerer blau-grauer Ton für das Icon */
+}
+
+.question-container form .check-button.next:hover .check-icon {
+  background-color: #607D8B;
+}
+
+/* Styling für korrekte Antwort */
+input.correct-answer {
+  background-color: #e6ffed;  /* Sehr helles Grün */
+  border-color: #28a745;      /* Kräftiges Grün */
+  color: #28a745;
+}
+
+/* Styling für falsche Antwort */
+input.incorrect-answer {
+  background-color: #ffe6e6;  /* Sehr helles Rot */
+  border-color: #dc3545;      /* Kräftiges Rot */
+  color: #dc3545;
+}
+
+/* Fokuseffekt */
+.loesung input:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+

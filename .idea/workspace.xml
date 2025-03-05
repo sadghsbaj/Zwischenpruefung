@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c208537d-99b9-40e4-885c-7d0459070674" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package.json" />
+        <option value="Python Script" />
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="fe8e094c-1f41-4b9e-90de-810498acf9c6" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2sTR7wPvS0izu5zPo7JAeHRBPAx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Flask server.Flask (app.py) (1).executor": "Run",
+    "Flask server.Flask (app.py).executor": "Run",
+    "Flask server.Flask (routes/main_data.py).executor": "Run",
+    "Flask server.Flask (testcheck.py).executor": "Run",
+    "Flask server.Project App.executor": "Run",
+    "JavaScript Debug.calculator.html (1).executor": "Run",
+    "JavaScript Debug.calculator.html.executor": "Run",
+    "JavaScript Debug.content_wrapper.html.executor": "Run",
+    "JavaScript Debug.content_wrapper_rechnen.html.executor": "Run",
+    "JavaScript Debug.dashboard.html.executor": "Run",
+    "JavaScript Debug.dynamic_rechnen.html.executor": "Run",
+    "JavaScript Debug.header.html.executor": "Run",
+    "JavaScript Debug.learning-mode.html.executor": "Run",
+    "JavaScript Debug.login.html.executor": "Run",
+    "JavaScript Debug.mustafa.html.executor": "Run",
+    "JavaScript Debug.rechnen_question.html.executor": "Run",
+    "JavaScript Debug.sortieren_question.html.executor": "Run",
+    "JavaScript Debug.stats.html.executor": "Run",
+    "JavaScript Debug.testdraw.html.executor": "Run",
+    "JavaScript Debug.zuordnen_question.html.executor": "Run",
+    "Node.js.calculation.js.executor": "Run",
+    "Python.Project App.executor": "Run",
+    "Python.Project_Zwischenprüfung.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.main_data.executor": "Run",
+    "Python.pp.executor": "Run",
+    "Python.question.executor": "Run",
+    "Python.questionlogic.executor": "Run",
+    "Python.random_data.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.users.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "<unknown>",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Hansd/Desktop/AppOnline",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.3.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hansd\Desktop\Project App\static\css" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\templates" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\routes\main_data_modules" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\routes" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hansd\Desktop\Project App\templates" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\templates\question" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\templates\calculator" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\static\js\calculator" />
+      <recent name="C:\Users\Hansd\Desktop\Project App\static\css\question" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Flask server.Flask (app.py) (1)">
+    <configuration name="calculator.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Project App/templates/calculator/calculator.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="content_wrapper.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Project App/templates/question/content_wrapper.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="content_wrapper_rechnen.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Project App/templates/question/content_wrapper_rechnen.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Project App" type="PythonConfigurationType" factoryName="Python">
+      <module name="Project App" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AppOnline" type="Python.FlaskServer">
+      <module name="AppOnline" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (app.py) (1)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <module name="AppOnline" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+      <module name="Project App" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Project App" type="Python.FlaskServer">
+      <module name="Project App" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flask server.Flask (app.py) (1)" />
+        <item itemvalue="Flask server.Flask (app.py)" />
+        <item itemvalue="JavaScript Debug.content_wrapper_rechnen.html" />
+        <item itemvalue="JavaScript Debug.calculator.html" />
+        <item itemvalue="JavaScript Debug.content_wrapper.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PY-243.23654.177" />
+        <option value="bundled-python-sdk-91d3a02ef49d-43b77aa2d136-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.23654.177" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c208537d-99b9-40e4-885c-7d0459070674" name="Changes" comment="" />
+      <created>1738477414686</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738477414686</updated>
+      <workItem from="1738477416272" duration="593000" />
+      <workItem from="1738478023470" duration="1151000" />
+      <workItem from="1738479190166" duration="331000" />
+      <workItem from="1738479557369" duration="1963000" />
+      <workItem from="1738517488451" duration="5391000" />
+      <workItem from="1738530263331" duration="335000" />
+      <workItem from="1738530610518" duration="3610000" />
+      <workItem from="1738534629972" duration="19515000" />
+      <workItem from="1738559036317" duration="4318000" />
+      <workItem from="1738566756763" duration="89000" />
+      <workItem from="1738567818875" duration="14335000" />
+      <workItem from="1738583396076" duration="8459000" />
+      <workItem from="1738631891043" duration="12950000" />
+      <workItem from="1738686945058" duration="2818000" />
+      <workItem from="1738724328610" duration="8616000" />
+      <workItem from="1738867498099" duration="14849000" />
+      <workItem from="1738892910713" duration="52000" />
+      <workItem from="1738943722973" duration="146000" />
+      <workItem from="1739050818395" duration="21551000" />
+      <workItem from="1739118689927" duration="647000" />
+      <workItem from="1739137356755" duration="6366000" />
+      <workItem from="1739259152259" duration="132000" />
+      <workItem from="1740079776040" duration="20510000" />
+      <workItem from="1740100451057" duration="44000" />
+      <workItem from="1740162672107" duration="2531000" />
+      <workItem from="1740165926332" duration="32372000" />
+      <workItem from="1740263140508" duration="17817000" />
+      <workItem from="1740346412566" duration="20219000" />
+      <workItem from="1740446418283" duration="2976000" />
+      <workItem from="1740449425100" duration="1118000" />
+      <workItem from="1740450561310" duration="84000" />
+      <workItem from="1740450697193" duration="889000" />
+      <workItem from="1740460200354" duration="3379000" />
+      <workItem from="1740464401917" duration="1084000" />
+      <workItem from="1740499972830" duration="1166000" />
+      <workItem from="1740604710579" duration="19000" />
+      <workItem from="1740606068117" duration="13564000" />
+      <workItem from="1740653896784" duration="26987000" />
+      <workItem from="1740700333554" duration="3260000" />
+      <workItem from="1740709488863" duration="2564000" />
+      <workItem from="1740712506139" duration="616000" />
+      <workItem from="1740736039959" duration="497000" />
+      <workItem from="1740738079457" duration="21747000" />
+      <workItem from="1740772974040" duration="3236000" />
+      <workItem from="1740776853865" duration="1990000" />
+      <workItem from="1740783895574" duration="3457000" />
+      <workItem from="1740794957730" duration="6150000" />
+      <workItem from="1740844786866" duration="14014000" />
+      <workItem from="1740899883670" duration="2367000" />
+      <workItem from="1740908135569" duration="24481000" />
+      <workItem from="1740973530270" duration="103000" />
+      <workItem from="1741000631178" duration="27552000" />
+      <workItem from="1741106162429" duration="3000" />
+      <workItem from="1741124293316" duration="13339000" />
+      <workItem from="1741139672160" duration="571000" />
+      <workItem from="1741173076627" duration="24249000" />
+      <workItem from="1741210420283" duration="740000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Project_App$Project_App.coverage" NAME="Project App Coverage Results" MODIFIED="1741005592886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Project_Zwischenprüfung_py$users.coverage" NAME="users Coverage Results" MODIFIED="1738528452232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+    <SUITE FILE_PATH="coverage/Project_App$Flask__routes_main_data_py_.coverage" NAME="Flask (routes/main_data.py) Coverage Results" MODIFIED="1739052817222" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Project_App$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1741209545851" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AppOnline$Flask__app_py___1_.coverage" NAME="Flask (app.py) (1) Coverage Results" MODIFIED="1741210673244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Project_Zwischenprüfung_py$Project_Zwischenprüfung.coverage" NAME="Project_Zwischenprüfung Coverage Results" MODIFIED="1738479758198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_App$Project_Zwischenprüfung.coverage" NAME="Project_Zwischenprüfung Coverage Results" MODIFIED="1738477549829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_App$main_data.coverage" NAME="main_data Coverage Results" MODIFIED="1739058782369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/routes" />
+    <SUITE FILE_PATH="coverage/Project_Zwischenprüfung_py$main.coverage" NAME="main Coverage Results" MODIFIED="1738518260396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+    <SUITE FILE_PATH="coverage/Project_App$questionlogic.coverage" NAME="questionlogic Coverage Results" MODIFIED="1738885354113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/routes" />
+    <SUITE FILE_PATH="coverage/Project_App$Flask__testcheck_py_.coverage" NAME="Flask (testcheck.py) Coverage Results" MODIFIED="1738725739763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Project_App$pp.coverage" NAME="pp Coverage Results" MODIFIED="1738689187251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Project_App$question.coverage" NAME="question Coverage Results" MODIFIED="1740266882787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/routes" />
+    <SUITE FILE_PATH="coverage/Project_App$random_data.coverage" NAME="random_data Coverage Results" MODIFIED="1739056877702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/routes" />
+    <SUITE FILE_PATH="coverage/Project_App$test.coverage" NAME="test Coverage Results" MODIFIED="1740447765964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/routes" />
+  </component>
+</project>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question</title>
+
+    <!-- Online Bibliotheken -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/question/background.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/question/icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/question/buttons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/question/text.css') }}">
+
+</head>
+<body>
+  {% include 'question/header.html' %}
+
+  {% include 'question/content_wrapper_rechnen.html' %}
+
+  {% include 'question/footer.html' %}
+
+    <!-- JS -->
+    <script src="static/js/question/menu.js"></script>
+    <script src="static/js/question/marked.js"></script>
+    <script src="static/js/question/exit.js"></script>
+    <script src="static/js/question/hint.js"></script>
+    <script src="static/js/question/attachment.js"></script>
+    <script src="static/js/question/report.js"></script>
+    <script src="static/js/question/focus.js"></script>
+    <script src="static/js/question/resize.js"></script>
+
+    <!-- Dunkelmodus -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var mode_value = "{{ session['mode'] }}";
+        console.log("mode_value:", mode_value); // Debug-Ausgabe in der Konsole
+        if (mode_value === "Dunkel") {
+          document.body.classList.add('dark-mode');
+        }
+      });
+    </script>
+
+</body>
+</html>

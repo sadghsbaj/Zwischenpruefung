@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Lernmodus</title>
+
+    <!-- Frühzeitiges Setzen des Dark-Mode, um FOUC zu vermeiden -->
+  <script>
+  (function() {
+    var mode_value = "{{ session['mode'] }}";
+    console.log("mode_value:", mode_value); // Debug-Ausgabe in der Konsole
+    if (mode_value === "Dunkel") {
+      document.body.classList.add('dark-mode');
+    }
+  })();
+</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/learning-mode.css">
+</head>
+<body class="{% if session.get('mode') == 'Dunkel' %}dark-mode{% endif %}">
+  <!-- Header -->
+   <header class="header">
+        <button class="back-button" onclick="window.location.href='/dashboard'">←</button>
+        <h1>Lernmodus</h1>
+        <div class="notification" onclick="showInfo()">
+            <span class="icon">i</span>
+        </div>
+    </header>
+
+  <!-- Hauptcontainer mit Formular -->
+  <main class="container">
+    <form method="post" action="/question">
+      <section class="selection">
+        <h2>Bitte auswählen:</h2>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="alle" {% if session.get('selected_checkboxes') and session['selected_checkboxes'].get('alle') %}checked{% endif %}>
+            <span>alle Fragen</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="falsche" {% if session.get('selected_checkboxes') and session['selected_checkboxes'].get('falsche') %}checked{% endif %}>
+            <span>falsche Fragen</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="markierte" {% if session.get('selected_checkboxes') and session['selected_checkboxes'].get('markierte') %}checked{% endif %}>
+            <span>markierte Fragen</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="sortieren" {% if session.get('selected_checkboxes') and session['selected_checkboxes'].get('sortieren') %}checked{% endif %}>
+            <span>Sortieraufgaben</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="zuordnen" {% if session.get('selected_checkboxes') and session['selected_checkboxes'].get('zuordnen') %}checked{% endif %}>
+            <span>Zuordnungsaufgaben</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="rechnen" {% if session.get('selected_checkboxes') and session['selected_checkboxes'].get('rechnen') %}checked{% endif %}>
+            <span>Rechenaufgaben</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="input-fields">
+        <div class="field">
+          <label for="anzahl_fragen">Anzahl Fragen:</label>
+          <input type="number" id="anzahl_fragen" name="anzahl" min="0" placeholder="z.B. 10" value="{{ session['selected_anzahl'] if session.get('selected_anzahl') != 'Infinity' else '' }}">
+        </div>
+        <div class="field">
+          <label for="zeitlimit">Zeitlimit (Min.):</label>
+          <input type="number" step="0.01" id="zeitlimit" name="zeit" min="0" placeholder="z.B. 15" value="{{ session['selected_zeit'] if session.get('selected_zeit') != 'Infinity' else '' }}">
+        </div>
+      </section>
+
+      <div class="button-area">
+        <button type="submit" name="start_button" class="start-button">Start</button>
+      </div>
+    </form>
+  </main>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <script>
+        {% for category, message in messages %}
+          showCustomAlert("{{ message }}");
+        {% endfor %}
+      </script>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Custom Alert Box -->
+  <div id="customAlert" class="modal" style="display: none;">
+      <div class="modal-content">
+          <p id="alertMessage"></p>
+          <button onclick="closeAlert()">OK</button>
+      </div>
+  </div>
+
+  <script>
+    function showInfo() {
+        document.getElementById("alertMessage").innerText =
+            "Falls kein Limit der Anzahl oder der Zeit gewünscht ist, kann das entsprechende Feld leer gelassen werden.";
+        document.getElementById("customAlert").style.display = "flex";  // Zeigt das Modal an
+    }
+
+    function closeAlert() {
+        document.getElementById("customAlert").style.display = "none"; // Versteckt das Modal
+    }
+
+    // Schließt das Modal, wenn man außerhalb davon klickt
+    window.onclick = function(event) {
+        let modal = document.getElementById("customAlert");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
+</body>
+</html>

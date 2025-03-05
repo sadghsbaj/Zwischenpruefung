@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Wrapper</title>
+</head>
+<body>
+  <div class="content-wrapper">
+    <main class="container">
+    <div class="question-container">
+      <form method="POST" action="/submit_solution">
+        {% for row in data %}
+          <p class="question-text"><strong>{{ row['fragegekuerzt'] }}</strong></p>
+            {% if 'antwort1gekuerzt' in row %}
+                    <div class="answer-option-1 {% if checked and correct_answer == '1' %}answer-option-true-1{% elif checked and result == '1' %}answer-option-false-1{% endif %}">
+                        <input type="checkbox" id="antwort1_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="1">
+                        <label for="antwort1_{{ loop.index }}" class="answer-label-1">{{ row['antwort1gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort2gekuerzt' in row %}
+                    <div class="answer-option-2 {% if checked and correct_answer == '2' %}answer-option-true-2{% elif checked and result == '2' %}answer-option-false-2{% endif %}">
+                        <input type="checkbox" id="antwort2_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="2">
+                        <label for="antwort2_{{ loop.index }}" class="answer-label-2">{{ row['antwort2gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort3gekuerzt' in row %}
+                    <div class="answer-option-3 {% if checked and correct_answer == '3' %}answer-option-true-3{% elif checked and result == '3' %}answer-option-false-3{% endif %}">
+                        <input type="checkbox" id="antwort3_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="3">
+                        <label for="antwort3_{{ loop.index }}" class="answer-label-3">{{ row['antwort3gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort4gekuerzt' in row %}
+                    <div class="answer-option-4 {% if checked and correct_answer == '4' %}answer-option-true-4{% elif checked and result == '4' %}answer-option-false-4{% endif %}">
+                        <input type="checkbox" id="antwort4_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="4">
+                        <label for="antwort4_{{ loop.index }}" class="answer-label-4">{{ row['antwort4gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort5gekuerzt' in row %}
+                    <div class="answer-option-5 {% if checked and correct_answer == '5' %}answer-option-true-5{% elif checked and result == '5' %}answer-option-false-5{% endif %}">
+                        <input type="checkbox" id="antwort5_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="5">
+                        <label for="antwort5_{{ loop.index }}" class="answer-label-5">{{ row['antwort5gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort6gekuerzt' in row %}
+                    <div class="answer-option-6 {% if checked and correct_answer == '6' %}answer-option-true-6{% elif checked and result == '6' %}answer-option-false-6{% endif %}">
+                        <input type="checkbox" id="antwort6_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="6">
+                        <label for="antwort6_{{ loop.index }}" class="answer-label-6">{{ row['antwort6gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort7gekuerzt' in row %}
+                    <div class="answer-option-7 {% if checked and correct_answer == '7' %}answer-option-true-7{% elif checked and result == '7' %}answer-option-false-7{% endif %}">
+                        <input type="checkbox" id="antwort7_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="7">
+                        <label for="antwort7_{{ loop.index }}" class="answer-label-7">{{ row['antwort7gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort8gekuerzt' in row %}
+                    <div class="answer-option-8 {% if checked and correct_answer == '8' %}answer-option-true-8{% elif checked and result == '8' %}answer-option-false-8{% endif %}">
+                        <input type="checkbox" id="antwort8_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="8">
+                        <label for="antwort8_{{ loop.index }}" class="answer-label-8">{{ row['antwort8gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        <!-- Überprüfen-/Weiter-Button -->
+        <button class="check-button {% if checked %}next{% endif %}">
+          <span class="check-icon">
+            {% if checked %}
+              <!-- Icon für "Weiter" -->
+              <svg class="next-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            {% else %}
+              <!-- Icon für "Überprüfen" -->
+              <svg class="check-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            {% endif %}
+          </span>
+          <span class="check-text">{% if checked %}Weiter{% else %}Überprüfen{% endif %}</span>
+        </button>
+      </form>
+    </div>
+    </main>
+
+    <aside class="side-menu">
+      <h2 class="menu-heading">Aktionen</h2>
+      <div class="menu-buttons">
+        <!-- Anlage-Button mit ID -->
+        <button class="menu-button" id="anlageButton">
+          <span class="btn-text">Anlage</span>
+          <span class="btn-icon"><i class="fas fa-folder-open"></i></span>
+        </button>
+
+        <!-- Melden-Button (hier evtl. mit eigener ID für JS-Anbindung) -->
+        <button class="menu-button" id="meldenButton">
+          <span class="btn-text">Melden</span>
+          <span class="btn-icon"><i class="fas fa-flag"></i></span>
+        </button>
+
+        <button class="menu-button bookmark-btn">
+          <span class="btn-text">Merken</span>
+          <span class="btn-icon"><i class="far fa-bookmark"></i></span>
+        </button>
+
+        <button class="menu-button exit-btn">
+          <span class="btn-text">Beenden</span>
+          <span class="btn-icon"><i class="fas fa-sign-out-alt"></i></span>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Modal für die Anzeige des Anlagenbildes -->
+  <div id="anlageModal" class="modal">
+    <div class="modal-content">
+      <img id="anlageImage" src="" alt="Anlagenbild">
+      <button class="close">&times;</button>
+    </div>
+  </div>
+
+  <!-- Exit-Popup -->
+  <div id="confirm-overlay" class="overlay">
+    <div class="popup">
+      <p>Möchtest du die Sitzung wirklich beenden?</p>
+      <div class="popup-buttons">
+        <button id="confirm-yes">Ja</button>
+        <button id="confirm-no">Nein</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meldung Modal (angepasst: nur Input und ein Button "Absenden") -->
+  <div id="Meldung-container" class="overlay">
+    <div class="popup meldung-popup">
+      <input type="text" id="Meldung-input" placeholder="Gib deine Meldung ein">
+      <div class="popup-buttons">
+        <button id="meldung-submit" class="popup-submit">Absenden</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

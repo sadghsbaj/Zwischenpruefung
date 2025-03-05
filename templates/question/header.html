@@ -1,0 +1,23 @@
+<header>
+    <div class="test_nr">
+    <p class="pruefung">{{ session['pruefung'] }}</p>
+    <p class="aufgabe">Aufgabe {{ session['fragenummer'] }}</p>
+    </div>
+  <!-- Container für Icons im Header -->
+  <div class="header-icons">
+    <!-- Info-Icon aus Online Bibliothek -->
+    <span class="info-icon"><i class="fa-solid fa-info"></i></span>
+    <!-- Toggle-Icon (Hamburger-Menü) -->
+    <span class="toggle-icon">&#9776;</span>
+  </div>
+</header>
+
+<!-- Das Hinweis-Popup -->
+<div class="popup-overlay" style="display: none;">
+  <div class="popup-content">
+    <!-- Hinweis-Text -->
+    <p id="hint-text">Hier wird der Hinweis angezeigt.</p>
+    <!-- OK-Button -->
+    <button class="popup-ok">OK</button>
+  </div>
+</div>

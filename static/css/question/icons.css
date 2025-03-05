@@ -1,0 +1,128 @@
+/* Container für die Icons, um sie ordentlich anzuordnen */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Abstand zwischen den Icons */
+}
+
+/* Info-Icon – modern, schlicht und etwas kleiner */
+.info-icon {
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px; /* Kleinere Schriftgröße */
+  color: #474747;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.info-icon:hover {
+  border-color: #007BFF; /* Ändert die Farbe des Rahmens beim Hover */
+  background-color: #f0f8ff; /* Fügt einen sanften Hintergrund hinzu */
+}
+
+/* Allgemeine Formatierung für das Toggle-Icon */
+.toggle-icon {
+  position: absolute;
+  right: 40px; /* Abstand von rechts */
+  top: 50%;
+  transform: translateY(-52%); /* Leichte Anpassung für perfekte Zentrierung */
+  font-size: 20px; /* Gleiche Schriftgröße wie beim Info-Icon */
+  color: #393939; /* Dunkleres Grau */
+  cursor: pointer; /* Zeigt, dass das Icon klickbar ist */
+  user-select: none; /* Verhindert versehentliches Markieren */
+  width: 36px; /* Gleiche Breite wie das Info-Icon */
+  height: 36px; /* Gleiche Höhe wie das Info-Icon */
+  border: 2px solid #ddd; /* Dünner grauer Rahmen */
+  border-radius: 5px; /* Leicht abgerundete Ecken für einen quadratischen Rahmen */
+  display: flex;
+  align-items: center; /* Zentriert das Icon vertikal */
+  justify-content: center; /* Zentriert das Icon horizontal */
+  line-height: 36px; /* Stellt sicher, dass das Symbol zentriert ist */
+  transition: all 0.3s ease; /* Sanfter Übergang für Hover-Effekte */
+}
+
+/* Hervorhebung bei aktivem Menü */
+.toggle-icon.active {
+  border-color: #6c757d;          /* Blaugrauer Rahmen */
+  background-color: #f8f9fa;      /* Sehr helles Grau */
+  color: #495057;                /* Dunkleres Grau für das Icon */
+  transform: translateY(-52%) rotate(90deg);
+  box-shadow: 0 0 8px rgba(108, 117, 125, 0.2);
+  transition: all 0.3s ease;     /* Sanfte Übergänge für alle Eigenschaften */
+}
+
+/* Hover-Effekt gilt auch im aktiven Zustand */
+.toggle-icon.active:hover {
+  border-color: #007BFF;         /* Original Blau aus dem Hover */
+  background-color: #f0f8ff;     /* Original Hover-Hintergrund */
+  box-shadow: 0 0 8px rgba(0,123,255,0.3); /* Leichter Blauschimmer */
+}
+
+/* Bestehender Hover-Effekt bleibt unverändert */
+.toggle-icon:hover {
+  border-color: #007BFF;
+  background-color: #f0f8ff;
+}
+
+/* Das Overlay, das den Hintergrund abdunkelt und unscharf macht */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dunkler Hintergrund */
+  backdrop-filter: blur(5px); /* Hintergrund verschwommen machen */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Popup über den anderen Inhalten anzeigen */
+}
+
+/* Das eigentliche Pop-up */
+.popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Der Hinweis-Text */
+#hint-text {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* OK-Button */
+.popup-ok {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-ok:hover {
+  background-color: #45a049;
+}
+

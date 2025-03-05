@@ -1,0 +1,120 @@
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f0f4f8; /* dezentes, helles Blaugrau */
+    text-align: center;
+    padding: 2vw; /* Falls dieses Padding über den Viewport hinausgeht, ggf. anpassen */
+    height: 100vh; /* Stellt sicher, dass der Verlauf über die gesamte Höhe geht */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertikale Zentrierung */
+    align-items: center; /* Horizontale Zentrierung */
+    box-sizing: border-box; /* Damit Padding in die Höhe eingerechnet wird */
+}
+
+.container {
+    background: white;
+    border-radius: 1vw;
+    box-shadow: 0px 0.2vw 0.5vw rgba(0, 0, 0, 0.2);
+    padding: 3vw;
+    max-width: calc(80vw);
+    margin: 0; /* Keine Margin, da die Container jetzt durch Flexbox zentriert wird */
+}
+
+h1 {
+    background: #466472;
+    color: white;
+    padding: 1vw 2.5vw;
+    border-radius: 0.5vw;
+    margin-bottom: 2vh;
+    font-size: calc(1vw + 0.5vh);
+    box-shadow: 0px 0.2vw 0.5vw rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+button {
+    background: white;
+    color: #9B9EAF;
+    border: #9B9EAF 0.15vw solid;
+    padding: 0.75vw 1.5vw;
+    margin: 1vw;
+    border-radius: 1vw;
+    font-size: calc(0.75vw + 0.25vh);
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+    color: white;
+    border: #333 0.15vw solid;
+}
+
+.footer button {
+    flex: 1;
+    margin: 1vw;
+    font-size: calc(0.75vw + 0.25vh);
+}
+
+/* Schriftgrößen für die Zusammenfassung und Statistik */
+.section h2 {
+    font-size: calc(1vw + 0.5vh);
+}
+
+.section p {
+    font-size: calc(0.8vw + 0.4vh);
+}
+
+.section span {
+    font-weight: bold;
+    font-size: calc(0.8vw + 0.4vh);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+
+body.dark-mode .container {
+  background-color: #2f2f2f;
+  box-shadow: 0px 0.2vw 0.5vw rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode h1 {
+  background: #4c9ed9;
+  color: #fff;
+  box-shadow: 0px 0.2vw 0.5vw rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode button {
+  background: #444;
+  color: #fff;
+  border: #666 0.15vw solid;
+}
+
+body.dark-mode button:hover {
+  background-color: #555;
+  color: #fff;
+  border: #555 0.15vw solid;
+}
+
+
+body.dark-mode .section h2 {
+  color: #b5cbd4;
+}
+
+body.dark-mode .section span {
+  color: #ddd;
+}
+
+body.dark-mode .section p {
+  color: #aaa;
+}

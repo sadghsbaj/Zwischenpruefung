@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question</title>
+    <script>
+  (function() {
+    var mode_value = "{{ session['mode'] }}";
+    console.log("mode_value:", mode_value); // Debug-Ausgabe in der Konsole
+    if (mode_value === "Dunkel") {
+      document.body.classList.add('dark-mode');
+    }
+  })();
+</script>
+  <!-- Google Fonts: Open Sans -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/zuordnen.css') }}">
+</head>
+<body class="{% if session.get('mode') == 'Dunkel' %}dark-mode{% endif %}">
+  <!-- Info-Icon oben links -->
+  <div class="info-icon">i</div>
+  <!-- Versteckte Checkbox für den Toggle des Menüs -->
+  <input type="checkbox" id="toggle-menu">
+  <!-- Toggle-Icon (Hamburger) oben rechts -->
+  <label for="toggle-menu" class="toggle-icon">&#9776;</label>
+
+  <!-- Header -->
+  <header>
+    <h1>Zuordnen</h1>
+  </header>
+
+  <!-- Wrapper für Hauptinhalt und Seitenmenü -->
+  <div class="content-wrapper">
+    <!-- Hauptinhalt -->
+    <main class="container">
+      <!-- Focus Toggle Button -->
+      <button class="focus-toggle">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </button>
+      <!-- Prüfungsbereich -->
+      <div class="question-container">
+        <form method="POST" action="/submit_solution">
+            {% for row in data %}
+                <p class="question-text"><strong>{{ row['fragegekuerzt'] }}</strong></p>
+                {% if 'antwort1gekuerzt' in row %}
+                    <div class="answer-option-1 {% if checked and correct_answer == '1' %}answer-option-true-1{% elif checked and result == '1' %}answer-option-false-1{% endif %}">
+                        <input type="checkbox" id="antwort1_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="1">
+                        <label for="antwort1_{{ loop.index }}" class="answer-label-1">{{ row['antwort1gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort2gekuerzt' in row %}
+                    <div class="answer-option-2 {% if checked and correct_answer == '2' %}answer-option-true-2{% elif checked and result == '2' %}answer-option-false-2{% endif %}">
+                        <input type="checkbox" id="antwort2_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="2">
+                        <label for="antwort2_{{ loop.index }}" class="answer-label-2">{{ row['antwort2gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort3gekuerzt' in row %}
+                    <div class="answer-option-3 {% if checked and correct_answer == '3' %}answer-option-true-3{% elif checked and result == '3' %}answer-option-false-3{% endif %}">
+                        <input type="checkbox" id="antwort3_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="3">
+                        <label for="antwort3_{{ loop.index }}" class="answer-label-3">{{ row['antwort3gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort4gekuerzt' in row %}
+                    <div class="answer-option-4 {% if checked and correct_answer == '4' %}answer-option-true-4{% elif checked and result == '4' %}answer-option-false-4{% endif %}">
+                        <input type="checkbox" id="antwort4_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="4">
+                        <label for="antwort4_{{ loop.index }}" class="answer-label-4">{{ row['antwort4gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort5gekuerzt' in row %}
+                    <div class="answer-option-5 {% if checked and correct_answer == '5' %}answer-option-true-5{% elif checked and result == '5' %}answer-option-false-5{% endif %}">
+                        <input type="checkbox" id="antwort5_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="5">
+                        <label for="antwort5_{{ loop.index }}" class="answer-label-5">{{ row['antwort5gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort6gekuerzt' in row %}
+                    <div class="answer-option-6 {% if checked and correct_answer == '6' %}answer-option-true-6{% elif checked and result == '6' %}answer-option-false-6{% endif %}">
+                        <input type="checkbox" id="antwort6_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="6">
+                        <label for="antwort6_{{ loop.index }}" class="answer-label-6">{{ row['antwort6gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort7gekuerzt' in row %}
+                    <div class="answer-option-7 {% if checked and correct_answer == '7' %}answer-option-true-7{% elif checked and result == '7' %}answer-option-false-7{% endif %}">
+                        <input type="checkbox" id="antwort7_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="7">
+                        <label for="antwort7_{{ loop.index }}" class="answer-label-7">{{ row['antwort7gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+                {% if 'antwort8gekuerzt' in row %}
+                    <div class="answer-option-8 {% if checked and correct_answer == '8' %}answer-option-true-8{% elif checked and result == '8' %}answer-option-false-8{% endif %}">
+                        <input type="checkbox" id="antwort8_{{ loop.index }}" name="antwort_{{ loop.index }}[]" value="8">
+                        <label for="antwort8_{{ loop.index }}" class="answer-label-8">{{ row['antwort8gekuerzt'] }}</label>
+                    </div>
+                {% endif %}
+            {% endfor %}
+          <!-- Überprüfen-/Weiter-Button -->
+          <button class="check-button">
+            <span class="check-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <span class="check-text">{% if checked %}Weiter{% else %}Überprüfen{% endif %}</span>
+          </button>
+        </form>
+      </div>
+      <!-- Ende Prüfungsbereich -->
+    </main>
+
+    <!-- Seitenmenü -->
+    <aside class="side-menu">
+      <div class="menu-header">Optionen</div>
+      <!-- Anlage Button -->
+      <button class="btn-anlage">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.44 11.05l-8.49 8.49a5.5 5.5 0 0 1-7.78-7.78l8.49-8.49a3.5 3.5 0 0 1 4.95 4.95l-8.49 8.49"></path>
+          </svg>
+        </span>
+        <span class="btn-text">Anlage</span>
+      </button>
+      <!-- Melden Button -->
+      <button class="btn-melden">
+        <span class="icon">
+          <svg width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12" y2="16"></line>
+          </svg>
+        </span>
+        <span class="btn-text">Melden</span>
+      </button>
+      <!-- Merken Button -->
+      <input type="checkbox" id="toggle-merken" hidden>
+      <label for="toggle-merken" class="btn-merken">
+        <span class="icon">
+          <svg class="star-svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.7 5.8 21 7 14 2 9.3 9 8.5 12 2"></polygon>
+          </svg>
+        </span>
+        <span class="btn-text default">Merken</span>
+        <span class="btn-text active">Gemerkt</span>
+      </label>
+      <!-- Beenden Button -->
+      <form action="submit_back" method="POST">
+        <button type="submit" class="btn-beenden">
+          <span class="icon">
+            <svg width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21V3h18v18"></path>
+              <path d="M10 9h4"></path>
+            </svg>
+          </span>
+          <span class="btn-text">Beenden</span>
+        </button>
+      </form>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-info">
+      Richtig: {{ session['correct_count'] if session.get('correct_count') else 0 }} |
+      Falsch: {{ session['incorrect_count'] if session.get('incorrect_count') else 0 }} |
+      Offen: <span id="open-tasks"></span>
+    </p>
+  </footer>
+
+  <!-- Popup Overlay Info -->
+  <div class="popup-overlay">
+    <div class="popup-content">
+      <p id="hint-text"></p>
+      <button class="popup-ok">Ok</button>
+    </div>
+  </div>
+
+  <!-- Popup Overlay Melden -->
+  <div class="popup-melden" id="Meldung-container">
+    <div class="popup-melden-content">
+      <p>Problem melden:</p>
+      <input type="text" id="Meldung-input" placeholder="Bitte beschreibe das Problem kurz">
+      <div class="popup-melden-buttons">
+        <button class="popup-submit">Absenden</button>
+        <button class="popup-cancel">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Overlay für Anlage (PNG-Datei) -->
+  <div id="popup-anlage">
+    <div class="popup-content">
+      <img id="popup-img" src="" alt="Anlage">
+      <button class="close-btn" onclick="closeAnlage()">Schließen</button>
+    </div>
+  </div>
+
+  <!-- Focus Mode Overlay -->
+  <div class="focus-overlay"></div>
+
+  <!-- Skripte -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkButton = document.querySelector('.check-button');
+      const checkTextSpan = checkButton.querySelector('.check-text');
+
+      function updateButtonStyle() {
+        if (checkTextSpan.textContent.trim() === 'Weiter') {
+          checkButton.classList.add('active');
+        } else {
+          checkButton.classList.remove('active');
+        }
+      }
+      updateButtonStyle();
+      const observer = new MutationObserver(updateButtonStyle);
+      observer.observe(checkTextSpan, { characterData: true, childList: true, subtree: true });
+      checkButton.addEventListener('click', function() {
+        setTimeout(updateButtonStyle, 10);
+      });
+
+      // Anlage-Button: Popup öffnen
+      document.querySelector('.btn-anlage').addEventListener('click', openAnlage);
+
+      // Melden-Button
+      document.querySelector('.btn-melden').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById("Meldung-container").style.display = "flex";
+      });
+      document.querySelector('.popup-submit').addEventListener('click', function(e) {
+        e.preventDefault();
+        submitText();
+      });
+      document.querySelector('.popup-cancel').addEventListener('click', function() {
+        document.getElementById("Meldung-input").value = "";
+        document.getElementById("Meldung-container").style.display = "none";
+      });
+      document.getElementById("Meldung-container").addEventListener('click', function(e) {
+        if (e.target === this) {
+          document.getElementById("Meldung-input").value = "";
+          this.style.display = "none";
+        }
+      });
+      document.querySelector('.focus-toggle').addEventListener('click', function() {
+        var focusOverlay = document.querySelector('.focus-overlay');
+        var container = document.querySelector('.container');
+        if (container.classList.contains('focus-active')) {
+          container.classList.remove('focus-active');
+          focusOverlay.style.display = 'none';
+        } else {
+          container.classList.add('focus-active');
+          focusOverlay.style.display = 'block';
+        }
+      });
+      document.querySelector('.info-icon').addEventListener('click', function(e) {
+        e.preventDefault();
+        openhinweis();
+      });
+      window.onload = updateOpenTasks;
+    });
+
+    function openhinweis() {
+      fetch('/show_hint')
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          const hintText = document.getElementById('hint-text');
+          const infoPopup = document.querySelector('.popup-overlay');
+          hintText.textContent = data.hinweis;
+          infoPopup.style.display = 'flex';
+        })
+        .catch(error => {
+          console.error('Fehler:', error);
+          alert('Hinweis konnte nicht geladen werden');
+        });
+       // Schließen des Info-Popups, wenn "Ok" gedrückt wird
+        document.querySelector('.popup-ok').addEventListener('click', function() {
+          document.querySelector('.popup-overlay').style.display = 'none';
+        });
+
+        // Schließen des Info-Popups, wenn außerhalb des Inhalts geklickt wird
+        document.querySelector('.popup-overlay').addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.style.display = 'none';
+  }
+});
+    }
+
+    function submitText() {
+      let inputText = document.getElementById("Meldung-input").value;
+      fetch("/save_text", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: inputText })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("Meldung-input").value = "";
+        document.getElementById("Meldung-container").style.display = "none";
+      })
+      .catch(error => console.error("Fehler:", error));
+    }
+
+    function updateOpenTasks() {
+      fetch('/open_tasks')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('open-tasks').textContent = data.open_tasks;
+        })
+        .catch(error => console.error('Fehler beim Abrufen der offenen Aufgaben:', error));
+    }
+
+    function updateTime() {
+      const currentDate = new Date();
+      const hours = String(currentDate.getHours()).padStart(2, '0');
+      const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+      const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('time').textContent = timeString;
+      fetch('/update_time', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ live_time: timeString })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Antwort von Flask:', data))
+      .catch(error => console.error('Fehler:', error));
+    }
+    updateTime();
+    setInterval(updateTime, 10000);
+
+    (function () {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        const confirmLeave = confirm("Du kannst nicht zur vorherigen Frage zurückkehren! Möchtest du das lernen beenden?");
+        if (confirmLeave) {
+          window.location.href = '/ergebnis';
+        } else {
+          history.pushState(null, null, location.href);
+        }
+      };
+    })();
+
+    // Funktion zum Öffnen des Anlage-Popups
+    function openAnlage() {
+  fetch('/show_anlage')
+    .then(response => response.json())
+    .then(data => {
+      const anlageDateiname = data.anlagebezeichnung;
+      const popupImg = document.getElementById('popup-img');
+      popupImg.src = "{{ url_for('static', filename='images/anlagen/') }}" + anlageDateiname;
+
+      // Sobald das Bild geladen ist, Dimensionen anpassen
+      popupImg.onload = function() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const targetWidth = vw * 0.7;   // 70% der Fensterbreite
+        const targetHeight = vh * 0.7;  // 70% der Fensterhöhe
+
+        const naturalWidth = popupImg.naturalWidth;
+        const naturalHeight = popupImg.naturalHeight;
+        const imageRatio = naturalWidth / naturalHeight;
+        const targetRatio = targetWidth / targetHeight;
+
+        // So skalieren, dass das Bild 70% abdeckt und das Seitenverhältnis beibehalten wird
+        if (targetRatio > imageRatio) {
+          // Bild wird nach der Höhe skaliert
+          popupImg.style.height = targetHeight + "px";
+          popupImg.style.width = (targetHeight * imageRatio) + "px";
+        } else {
+          // Bild wird nach der Breite skaliert
+          popupImg.style.width = targetWidth + "px";
+          popupImg.style.height = (targetWidth / imageRatio) + "px";
+        }
+      };
+
+      document.getElementById('popup-anlage').style.display = 'flex';
+    })
+    .catch(error => console.error('Fehler beim Abrufen der Anlage:', error));
+}
+
+
+    // Funktion zum Schließen des Anlage-Popups
+    function closeAnlage() {
+      document.getElementById('popup-anlage').style.display = 'none';
+    }
+
+  </script>
+
+  <div id="time" style="display:none;"></div>
+</body>
+</html>

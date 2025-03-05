@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moderner Taschenrechner</title>
+  <!-- Moderne Schriftart: Roboto -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/calculator/calculator.css">
+</head>
+<body>
+  <div id="calculator" class="calculator">
+    <div class="display">
+      <!-- Theme-Button (Zahnrad) – ganz links im Display -->
+      <button id="themeButton" class="theme-button" title="Design wählen">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.14,12.94a7.14,7.14,0,0,0,0-1.88l2.11-1.65a.5.5,0,0,0,.12-.63l-2-3.46a.5.5,0,0,0-.61-.22l-2.49,1a7.07,7.07,0,0,0-1.62-.94L14,2.81A.5.5,0,0,0,13.5,2.5H10.5a.5.5,0,0,0-.5.31L9.35,5.23a7.07,7.07,0,0,0-1.62.94l-2.49-1a.5.5,0,0,0-.61.22l-2,3.46a.5.5,0,0,0,.12.63L4.86,11.06a7.14,7.14,0,0,0,0,1.88L2.75,14.59a.5.5,0,0,0-.12.63l2,3.46a.5.5,0,0,0,.61.22l2.49-1a7.07,7.07,0,0,0,1.62.94L9.5,21.19a.5.5,0,0,0,.5.31h3a.5.5,0,0,0,.5-.31l1.15-2.92a7.07,7.07,0,0,0,1.62-.94l2.49,1a.5.5,0,0,0,.61-.22l2-3.46a.5.5,0,0,0-.12-.63ZM12,15.5A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/>
+        </svg>
+      </button>
+
+      <!-- Dropdown-Menü mit Überschriften (Überschriften reagieren nicht auf Klick) -->
+      <div id="themeDropdown" class="theme-dropdown">
+        <ul id="themeList">
+          <!-- wird per JavaScript befüllt -->
+        </ul>
+      </div>
+
+      <!-- Icons – alle unten links im Display -->
+      <div id="yodaIcon" class="theme-icon">
+        <svg viewBox="0 0 64 64">
+          <path d="M32,2 C20,2 10,12 10,24 C10,30 12,36 16,40 C12,44 10,50 10,56 C10,62 16,62 16,62 L48,62 C48,62 54,62 54,56 C54,50 52,44 48,40 C52,36 54,30 54,24 C54,12 44,2 32,2 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+      <div id="lightsaberIcon" class="theme-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="28" y="5" width="8" height="45" fill="#00aaff" />
+          <rect x="26" y="50" width="12" height="8" fill="#555" />
+        </svg>
+      </div>
+      <div id="coruscantIcon" class="theme-icon">
+        <svg viewBox="0 0 64 64">
+          <polyline points="5,50 15,30 25,40 35,20 45,35 55,15 63,50" fill="none" stroke="currentColor" stroke-width="3"/>
+        </svg>
+      </div>
+
+      <div class="display-line placeholder">123</div>
+      <div class="display-line placeholder">456</div>
+      <div class="display-line placeholder">789</div>
+      <input type="text" class="display-line input" placeholder="0" />
+    </div>
+
+    <div id="separator" class="separator" style="display: none;"></div>
+
+    <div class="keys">
+      <button class="key key-frac" title="Bruch">
+        <span class="icon">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            <text x="50" y="35" text-anchor="middle" fill="currentColor" font-size="30" font-family="Roboto">a</text>
+            <line x1="20" y1="50" x2="80" y2="50" stroke="currentColor" stroke-width="5"/>
+            <text x="50" y="85" text-anchor="middle" fill="currentColor" font-size="30" font-family="Roboto">b</text>
+          </svg>
+        </span>
+        <span class="label">Bruch</span>
+      </button>
+      <button class="key key-wurzel" title="Wurzel">
+        <span class="icon">√</span>
+        <span class="label">Wurzel</span>
+      </button>
+      <button class="key key-open" title="(">
+        <span class="icon">(</span>
+        <span class="label">(</span>
+      </button>
+      <button class="key key-close" title=")">
+        <span class="icon">)</span>
+        <span class="label">)</span>
+      </button>
+      <button class="key key-clear" title="Clear">
+        <span class="icon">C</span>
+        <span class="label">Clear</span>
+      </button>
+      <button class="key key-back" title="Back">
+        <span class="icon">⌫</span>
+        <span class="label">Back</span>
+      </button>
+      <button class="key key-copy" title="Copy">
+        <span class="icon">⧉</span>
+        <span class="label">Copy</span>
+      </button>
+      <button class="key key-divide" title="Division">
+        <span class="icon">÷</span>
+        <span class="label">/</span>
+      </button>
+      <button class="key key-7" title="7">
+        <span class="icon">7</span>
+        <span class="label">7</span>
+      </button>
+      <button class="key key-8" title="8">
+        <span class="icon">8</span>
+        <span class="label">8</span>
+      </button>
+      <button class="key key-9" title="9">
+        <span class="icon">9</span>
+        <span class="label">9</span>
+      </button>
+      <button class="key key-multiply" title="Multiplikation">
+        <span class="icon">×</span>
+        <span class="label">*</span>
+      </button>
+      <button class="key key-4" title="4">
+        <span class="icon">4</span>
+        <span class="label">4</span>
+      </button>
+      <button class="key key-5" title="5">
+        <span class="icon">5</span>
+        <span class="label">5</span>
+      </button>
+      <button class="key key-6" title="6">
+        <span class="icon">6</span>
+        <span class="label">6</span>
+      </button>
+      <button class="key key-minus" title="Subtraktion">
+        <span class="icon">−</span>
+        <span class="label">-</span>
+      </button>
+      <button class="key key-1" title="1">
+        <span class="icon">1</span>
+        <span class="label">1</span>
+      </button>
+      <button class="key key-2" title="2">
+        <span class="icon">2</span>
+        <span class="label">2</span>
+      </button>
+      <button class="key key-3" title="3">
+        <span class="icon">3</span>
+        <span class="label">3</span>
+      </button>
+      <button class="key key-plus" title="Addition">
+        <span class="icon">+</span>
+        <span class="label">+</span>
+      </button>
+      <button class="key key-ans" title="Answer">
+        <span class="icon">Ans</span>
+        <span class="label">Ans</span>
+      </button>
+      <button class="key key-0" title="0">
+        <span class="icon">0</span>
+        <span class="label">0</span>
+      </button>
+      <button class="key key-comma" title=",">
+        <span class="icon">,</span>
+        <span class="label">,</span>
+      </button>
+      <button class="key key-equals" title="=">
+        <span class="icon">=</span>
+        <span class="label">=</span>
+      </button>
+    </div>
+  </div>
+  <div id="fractionPopup" class="fraction-popup" style="display:none;">
+  <div class="fraction-container">
+    <input type="text" id="numeratorInput" placeholder="Zähler" />
+    <div class="fraction-line"></div>
+    <input type="text" id="denominatorInput" placeholder="Nenner" />
+    <div class="fraction-buttons">
+      <button id="fractionOkButton">OK</button>
+      <button id="fractionCancelButton">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+  <script src="../../static/js/calculator/calculator.js"></script>
+  <script src="../../static/js/calculator/calculation.js"></script>
+</body>
+</html>

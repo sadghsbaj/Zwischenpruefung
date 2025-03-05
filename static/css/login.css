@@ -1,0 +1,238 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body als Flex-Container für zentriertes Layout */
+html, body {
+  height: 100vh;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login-Container */
+.login-container {
+  width: 360px;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.login-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+/* Feld-Container */
+.field-container {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Input-Felder */
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Custom Dropdown für den Benutzernamen */
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown .dropdown-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.dropdown-list {
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+  z-index: 1000;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.dropdown-list li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f4f8;
+}
+
+/* Passwort-Feld mit Toggle-Auge */
+.input-container {
+  position: relative;
+}
+
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+
+/* Login-Button */
+.button-container {
+  margin-top: 1.5rem;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #6c757d;  /* Grauton */
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Fehler-Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 999;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 1000;
+  padding: 1.5rem;
+  width: 300px;
+  text-align: center;
+}
+
+.popup.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-content p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.ok-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #6c757d;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Mobile Optimierung (Porträt) */
+@media (max-width: 480px) {
+  .login-container {
+    width: 90%;
+    padding: 1rem;
+  }
+  .login-container img {
+    width: 60px;
+    height: 60px;
+  }
+  .login-container h2 {
+    font-size: 1.5rem;
+  }
+  .input-field {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .login-btn {
+    padding: 0.6rem;
+    font-size: 1rem;
+  }
+}
+
+/* Mobile Querformat (Kleinere Darstellung, mit Abstand oben und Scrollen möglich) */
+@media (max-width: 480px) and (orientation: landscape) {
+  html, body {
+    /* Anstatt zentriert, oben ausrichten und oben einen kleinen Abstand lassen */
+    align-items: flex-start;
+    padding-top: 1rem;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .login-container {
+    width: 85%;
+    padding: 0.8rem;
+  }
+  .login-container img {
+    width: 50px;
+    height: 50px;
+  }
+  .login-container h2 {
+    font-size: 1.4rem;
+  }
+  .input-field {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  .login-btn {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}

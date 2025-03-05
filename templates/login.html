@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Schriftart (Open Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Login-spezifisches CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="popup-overlay" id="popup-overlay"></div>
+
+    <div class="login-container" id="login-container">
+        <!-- Profilbild-Platzhalter Icon -->
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Profilbild Platzhalter">
+        <h2>Log in</h2>
+        <form method="POST" action="{{ url_for('login.login') }}">
+            <!-- Benutzername mit Dropdown -->
+            <div class="field-container">
+                <label for="username" class="field-label">Benutzername</label>
+                <div class="custom-dropdown">
+                    <input type="text" id="username" name="username" class="input-field" autocomplete="off" onclick="toggleDropdownList()">
+                    <span class="dropdown-arrow" onclick="toggleDropdownList()">&#9662;</span>
+                    <ul id="dropdown-list" class="dropdown-list">
+                        <li onclick="selectUsername('Admin')">Admin</li>
+                        <li onclick="selectUsername('Alicia')">Alicia</li>
+                        <li onclick="selectUsername('Celine')">Celine</li>
+                        <li onclick="selectUsername('Colin')">Colin</li>
+                        <li onclick="selectUsername('Isabela')">Isabela</li>
+                        <li onclick="selectUsername('Josef')">Josef</li>
+                        <li onclick="selectUsername('Petra')">Petra</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Passwortfeld mit Toggle-Auge -->
+            <div class="field-container">
+                <label for="password" class="field-label">Passwort</label>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" class="input-field" required>
+                    <span class="show-password" onclick="togglePassword()" title="Anzeigen">
+                        <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Login-Button mit Icon -->
+            <div class="button-container">
+                <button type="submit" class="login-btn">
+                    <i class="fa-solid fa-right-to-bracket" style="margin-right: 8px;"></i> LOGIN
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if error %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            showPopup();
+        });
+    </script>
+    {% endif %}
+
+    <!-- Fehler-Popup -->
+    <div id="error-popup" class="popup">
+        <div class="popup-content">
+            <p>Benutzername oder Passwort ist falsch!</p>
+            <button class="ok-btn" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <!-- JavaScript für Passwort-Toggle, Dropdown und Popup -->
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var eyeIcon = document.getElementById("eyeIcon");
+            var tooltip = document.querySelector(".show-password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+                tooltip.setAttribute("title", "Verbergen");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+                tooltip.setAttribute("title", "Anzeigen");
+            }
+        }
+
+        function showPopup() {
+            document.getElementById("error-popup").style.display = "flex";
+            document.getElementById("popup-overlay").style.display = "block";
+            document.body.classList.add("popup-open");
+        }
+
+        function closePopup() {
+            document.getElementById("error-popup").style.display = "none";
+            document.getElementById("popup-overlay").style.display = "none";
+            document.body.classList.remove("popup-open");
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            {% if error %}
+                showPopup();
+            {% else %}
+                closePopup();
+            {% endif %}
+        });
+
+        function toggleDropdownList() {
+            const dropdown = document.getElementById("dropdown-list");
+            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        }
+
+        function selectUsername(username) {
+            document.getElementById("username").value = username;
+            document.getElementById("dropdown-list").style.display = "none";
+        }
+
+        // Schließt das Dropdown, wenn außerhalb geklickt wird
+        document.addEventListener("click", function(event) {
+            if (!event.target.closest('.custom-dropdown')) {
+                document.getElementById("dropdown-list").style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

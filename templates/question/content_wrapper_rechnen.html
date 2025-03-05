@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Wrapper</title>
+</head>
+<body>
+  <div class="content-wrapper">
+    <main class="container">
+    <div class="question-container">
+      <form method="POST" action="/submit_solution">
+        {% for row in data %}
+          <p class="question-text"><strong>{{ row['fragegekuerzt'] }}</strong></p>
+        {% endfor %}
+
+        <div class="textarea-container">
+          <textarea name="answer" id="answer" rows="3" cols="100" placeholder="Platz für Nebenrechnungen und Notizen..."></textarea>
+        </div>
+
+        <div class="loesung">
+          <input type="number" step="0.01" id="loesung" name="loesung" placeholder="Antwort" aria-label="Lösung" required
+                 class="{% if checked %}{{ 'correct-answer' if correct else 'incorrect-answer' }}{% else %}initial-answer{% endif %}"
+                 value="{% if checked %}{{ result if correct else correct_answer }}{% endif %}">
+        </div>
+
+        <!-- Überprüfen-/Weiter-Button -->
+        <button class="check-button {% if checked %}next{% endif %}">
+          <span class="check-icon">
+            {% if checked %}
+              <!-- Icon für "Weiter" -->
+              <svg class="next-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            {% else %}
+              <!-- Icon für "Überprüfen" -->
+              <svg class="check-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            {% endif %}
+          </span>
+          <span class="check-text">{% if checked %}Weiter{% else %}Überprüfen{% endif %}</span>
+        </button>
+      </form>
+    </div>
+    </main>
+
+    <aside class="side-menu">
+      <h2 class="menu-heading">Aktionen</h2>
+      <div class="menu-buttons">
+        <!-- Anlage-Button mit ID -->
+        <button class="menu-button" id="anlageButton">
+          <span class="btn-text">Anlage</span>
+          <span class="btn-icon"><i class="fas fa-folder-open"></i></span>
+        </button>
+
+        <!-- Melden-Button (hier evtl. mit eigener ID für JS-Anbindung) -->
+        <button class="menu-button" id="meldenButton">
+          <span class="btn-text">Melden</span>
+          <span class="btn-icon"><i class="fas fa-flag"></i></span>
+        </button>
+
+        <button class="menu-button bookmark-btn">
+          <span class="btn-text">Merken</span>
+          <span class="btn-icon"><i class="far fa-bookmark"></i></span>
+        </button>
+
+        <button class="menu-button exit-btn">
+          <span class="btn-text">Beenden</span>
+          <span class="btn-icon"><i class="fas fa-sign-out-alt"></i></span>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Modal für die Anzeige des Anlagenbildes -->
+  <div id="anlageModal" class="modal">
+    <div class="modal-content">
+      <img id="anlageImage" src="" alt="Anlagenbild">
+      <button class="close">&times;</button>
+    </div>
+  </div>
+
+  <!-- Exit-Popup -->
+  <div id="confirm-overlay" class="overlay">
+    <div class="popup">
+      <p>Möchtest du die Sitzung wirklich beenden?</p>
+      <div class="popup-buttons">
+        <button id="confirm-yes">Ja</button>
+        <button id="confirm-no">Nein</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meldung Modal (angepasst: nur Input und ein Button "Absenden") -->
+  <div id="Meldung-container" class="overlay">
+    <div class="popup meldung-popup">
+      <input type="text" id="Meldung-input" placeholder="Gib deine Meldung ein">
+      <div class="popup-buttons">
+        <button id="meldung-submit" class="popup-submit">Absenden</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

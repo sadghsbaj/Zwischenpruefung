@@ -1,0 +1,365 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  overflow-x: hidden;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* LAYOUT: Haupt-Container */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f4f8;
+}
+
+/* NAVBAR / HEADER */
+.navbar {
+  position: relative; /* für .right-actions */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Überschrift zentrieren */
+  background-color: white;
+  height: 70px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+.navbar h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #444;
+  text-align: center;
+}
+.right-actions {
+  position: absolute;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* SETTINGS-BUTTON (Zahnrad) */
+/* Standard im Hell-Modus: gear.png */
+.settings-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+}
+.gear-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 60px;
+  right: 2rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding: 1rem;
+  width: 260px;
+  display: none;
+  z-index: 999;
+}
+.dropdown.show {
+  display: block;
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.left-section {
+  display: flex;
+  align-items: center;
+}
+.mode-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  font-size: 1.5rem;
+}
+.mode-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.sun {
+  color: #FFD700;
+}
+.moon {
+  color: #808080;
+}
+.text-block {
+  margin-left: 0.5rem;
+}
+.dropdown-header {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 3px;
+  color: #333;
+}
+.mode-label {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Toggle-Schieberegler */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+/* Dark Mode Schieberegler anpassen */
+body.dark-mode .slider {
+  background-color: black;
+}
+body.dark-mode input:checked + .slider {
+  background-color: black;
+}
+
+/* CONTENT-BEREICH (das "weiße Rechteck") */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin: 1rem auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+}
+.welcome-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+/* Willkommenstext etwas heller im Hell-Modus */
+.welcome-section p {
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* BUTTON-BEREICH (immer 2x2 angeordnet) */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.button-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.button-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+/* Farben für die Buttons */
+.button1 { background: #4c9ed9; }
+.button2 { background: #f1876b; }
+.button3 { background: #a47bd9; }
+.coming-soon {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.button-card .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}
+.logout {
+  font-weight: 600;
+  color: #555;
+  border: 2px solid #555;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.logout:hover {
+  background-color: #555;
+  color: #fff;
+}
+
+#reloadContainer {
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#reloadButton {
+    position: relative;
+    overflow: hidden;
+    padding: 5px 10px;
+    border: none;
+    background-color: #FF8C00;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+#reloadButton:hover {
+    background-color: #FF4500; /* Eine dunklere oder auffälligere Farbe */
+    transform: scale(1.1); /* Leicht vergrößern */
+    transition: all 0.3s ease;
+}
+
+
+/* Spinner-Symbol für den Reload-Button */
+.spinner-icon {
+  display: inline-block;
+  animation: spin 2s linear infinite;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* RESPONSIVE ANPASSUNGEN */
+@media (max-width: 768px) {
+  .navbar h1 { font-size: 1.5rem; }
+  .navbar { padding: 0.75rem 1rem; }
+  .content { padding: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
+  .welcome-section p { font-size: 1.05rem; }
+  .button-card { padding: 1.2rem 0.8rem; font-size: 1rem; }
+  .button-card .icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+}
+@media (max-width: 480px) {
+  .navbar h1 { font-size: 1.3rem; }
+  .navbar { padding: 0.5rem 1rem; }
+  .gear-icon { width: 28px; height: 28px; }
+  .dropdown { right: 1rem; width: 220px; }
+  .dropdown-item { font-size: 0.9rem; }
+  .dropdown-header { font-size: 1rem; }
+  .mode-label { font-size: 0.85rem; }
+  .content { padding: 1rem; }
+  .welcome-section p { font-size: 1rem; }
+  .button-card { padding: 1rem 0.6rem; font-size: 0.9rem; }
+  .button-card .icon { font-size: 1.5rem; margin-bottom: 0.3rem; }
+  footer { padding: 0.5rem; }
+  .logout { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+}
+/* Auf größeren Bildschirmen breiterer Content */
+@media (min-width: 1024px) {
+  .content { max-width: 1400px; padding: 3rem; }
+}
+
+/* DARK MODE STYLES */
+body.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+body.dark-mode .navbar {
+  background-color: #2a2a2a;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+}
+body.dark-mode .navbar h1 { color: #fff; }
+body.dark-mode .dropdown {
+  background-color: #333;
+  color: #fff;
+  border-color: #444;
+}
+body.dark-mode .dropdown-header { color: #fff; }
+body.dark-mode .mode-label { color: #ccc; }
+body.dark-mode .content {
+  background-color: #2f2f2f;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+body.dark-mode footer {
+  background-color: #2a2a2a;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.6);
+}
+body.dark-mode .logout {
+  color: #eee;
+  border-color: #eee;
+}
+
+body.dark-mode .dashboard-container {
+  background-color: #222;
+}
+

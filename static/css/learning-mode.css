@@ -1,0 +1,303 @@
+/* Basis-Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body: Flex-Container, damit der Hauptinhalt vertikal zentriert werden kann */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Platz lassen für den fixierten Header */
+  padding-top: 80px;
+}
+
+/* Header: Weißer Balken mit Schatten, fixiert am oberen Rand */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Zurück-Pfeil, links im Header positioniert */
+.back-button {
+  position: absolute;
+  left: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #444;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.back-button:hover {
+  color: #222;
+}
+
+/* Überschrift im Header */
+.header h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* Hauptcontainer */
+.container {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: auto 0;
+}
+
+/* Auswahlbereich */
+.selection h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #4c9ed9;
+}
+
+/* Checkbox-Gruppe */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin-right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Input-Felder */
+.input-fields {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.field label {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #4c9ed9;
+}
+
+.field input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #466472;
+}
+
+/* Button-Bereich */
+.button-area {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.start-button {
+  background: #4c9ed9;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover {
+  background: #346A91;
+  transform: scale(1.02);
+}
+
+.notification {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #444;
+  color: #444;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-weight: bold;
+}
+
+.notification:hover {
+  background: #222;
+  border: 2px solid #222;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Modal-Hintergrund abdunkeln */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal-Box */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+}
+
+/* OK-Button */
+.modal-content button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.modal-content button:hover {
+    background-color: darkgreen;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 600px) {
+
+  .container {
+    margin: auto 1rem;
+    padding: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+  }
+
+  .start-button {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+.notification {
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+/* DARK MODE STYLES */
+body.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+
+body.dark-mode .header {
+  background: #2a2a2a;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .header h1 {
+  color: #fff;
+}
+
+body.dark-mode .back-button {
+  color: #ccc;
+}
+
+body.dark-mode .back-button:hover {
+  color: #fff;
+}
+
+body.dark-mode .container {
+  background: #2f2f2f;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .start-button {
+  background: #4c9ed9;
+}
+
+body.dark-mode .start-button:hover {
+  background: #346A91;
+}
+
+body.dark-mode .modal-content {
+  background-color: #333;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .back-button {
+  color: white;
+}
+
+body.dark-mode .notification {
+  background: #333;
+  border: 2px solid white;
+  color: white;
+}
+
+body.dark-mode .notification:hover {
+  background: white;
+  border: 2px solid white;
+  color: #333;
+}

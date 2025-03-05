@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergebnisübersicht</title>
+
+        <!-- Frühzeitiges Setzen des Dark-Mode, um FOUC zu vermeiden -->
+  <script>
+  (function() {
+    var mode_value = "{{ session['mode'] }}";
+    console.log("mode_value:", mode_value); // Debug-Ausgabe in der Konsole
+    if (mode_value === "Dunkel") {
+      document.body.classList.add('dark-mode');
+    }
+  })();
+</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ergebnis.css') }}">
+</head>
+<body class="{% if session.get('mode') == 'Dunkel' %}dark-mode{% endif %}">
+
+<div class="container">
+        <h1>Deine Ergebnisse</h1>
+
+        <div class="section">
+            <div class="background"></div> <!-- Grauer Hintergrund -->
+            <h2>Zusammenfassung</h2>
+            <p>Anzahl beantwortet: <span id="anzahl">{{ (session.get('correct_count', 0) + session.get('incorrect_count', 0)) }}</span></p>
+            <p>Richtig beantwortet: <span id="richtig">{{ session['correct_count'] if session.get('correct_count') else 0 }}</span></p>
+            <p>Falsch beantwortet: <span id="falsch">{{ session['incorrect_count'] if session.get('incorrect_count') else 0 }}</span></p>
+        </div>
+
+        <div class="section">
+            <h2>Statistik</h2>
+            <p>Richtig in Prozent: <span id="prozent">{{ "{:.2f}".format(((session['correct_count'] if session.get('correct_count') else 0) / (session.get('correct_count', 0) + session.get('incorrect_count', 0)) * 100) if (session.get('correct_count', 0) + session.get('incorrect_count', 0)) != 0 else 0) }}%</span></p>
+            <p>⌀ Zeit je Antwort: <span id="zeitAntwort">{{ (time_diff_min / (session.get('correct_count', 0) + session.get('incorrect_count', 0))) if (session.get('correct_count', 0) + session.get('incorrect_count', 0)) != 0 else 0 }} Min.</span></p>
+            <p>Gesamtzeit: <span id="gesamtzeit">{{ time_diff_min }} Min.</span></p>
+        </div>
+
+        <div class="footer">
+            <button onclick="goToMain()">Zum Hauptmenü</button>
+            <button onclick="showStats()">zur Gesamtstatistik</button>
+            <button onclick="nextTask()">zu weiteren Aufgaben</button>
+        </div>
+
+    </div>
+
+        <script>
+        function goToMain() {
+            window.location.href = '/dashboard';
+        }
+
+        function showStats() {
+            window.location.href = '/stats';
+        }
+
+        function nextTask() {
+            window.location.href = '/learning-mode';
+        }
+    </script>
+
+<script type="text/javascript">
+    // Blockiert den Zurück-Button und zeigt eine Bestätigung an
+    (function () {
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            const confirmLeave = confirm("Zur Lernauswahl zurückkehren?");
+            if (confirmLeave) {
+                window.location.href = '/learning-mode';  // Bei "Ja" weiterleiten
+            } else {
+                history.pushState(null, null, location.href); // Bei "Nein" bleibt man auf der Seite
+            }
+        };
+    })();
+</script>
+
+
+</body>
+</html>
